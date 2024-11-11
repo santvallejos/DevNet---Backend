@@ -8,19 +8,19 @@
     "net8.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Santi\\.nuget\\packages\\": {}
+    "C:\\Users\\juan_\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Santi\\Desktop\\Proyectos\\DevNet\\DevNet-Backend\\DevNet-DataAccessLayer\\DevNet-DataAccessLayer.csproj",
+      "projectUniqueName": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-DataAccessLayer\\DevNet-DataAccessLayer.csproj",
       "projectName": "DevNet-DataAccessLayer",
-      "projectPath": "C:\\Users\\Santi\\Desktop\\Proyectos\\DevNet\\DevNet-Backend\\DevNet-DataAccessLayer\\DevNet-DataAccessLayer.csproj",
-      "packagesPath": "C:\\Users\\Santi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Santi\\Desktop\\Proyectos\\DevNet\\DevNet-Backend\\DevNet-DataAccessLayer\\obj\\",
+      "projectPath": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-DataAccessLayer\\DevNet-DataAccessLayer.csproj",
+      "packagesPath": "C:\\Users\\juan_\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-DataAccessLayer\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Santi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\juan_\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -67,7 +67,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
