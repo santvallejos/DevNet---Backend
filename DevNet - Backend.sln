@@ -9,11 +9,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PL", "PL", "{9EEBCCF2-D37F-
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BL", "BL", "{643A7AC7-B96A-4999-901D-B56ADBF05FE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevNet-BusinessLayer", "DevNet-BusinessLayer\DevNet-BusinessLayer.csproj", "{20B19D72-C799-4D4F-8488-C1C3E7F63CE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevNet-BusinessLayer", "DevNet-BusinessLayer\DevNet-BusinessLayer.csproj", "{20B19D72-C799-4D4F-8488-C1C3E7F63CE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevNet-DataAccessLayer", "DevNet-DataAccessLayer\DevNet-DataAccessLayer.csproj", "{C08972F0-F96A-4354-A273-C420890A15F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevNet-DataAccessLayer", "DevNet-DataAccessLayer\DevNet-DataAccessLayer.csproj", "{C08972F0-F96A-4354-A273-C420890A15F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevNet-WebAPI", "DevNet-WebAPI\DevNet-WebAPI.csproj", "{AA50321C-4DA9-4CBA-9D29-EBE0CE3952C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevNet-WebAPI", "DevNet-WebAPI\DevNet-WebAPI.csproj", "{AA50321C-4DA9-4CBA-9D29-EBE0CE3952C6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C08972F0-F96A-4354-A273-C420890A15F6} = {C08972F0-F96A-4354-A273-C420890A15F6}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

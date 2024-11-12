@@ -9,7 +9,7 @@ namespace DevNet_DataAccessLayer.Models
     public class UserDev
     {
         //properties
-        public Guid UserId { get; set; }
+        public Guid UserDevId { get; set; }
         public Guid RoleId { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
