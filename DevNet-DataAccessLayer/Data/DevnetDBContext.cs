@@ -15,13 +15,14 @@ namespace DevNet_DataAccessLayer.Data
             
         }
 
-        public DbSet<Follow> Followers { get; set; }
+        public DbSet<Chat> Chats { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Follower> Followers { get; set; }
         public DbSet<Like> Likes { get; set; }
-        public DbSet<Message> Messages { get; set; }
         public DbSet<Notification> Notifications { get; set; }
-        public DbSet<Publication> Publications { get; set; }
+        public DbSet<Post> Posts { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public DbSet<UserDev> UserDevs { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

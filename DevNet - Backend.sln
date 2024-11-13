@@ -12,9 +12,13 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevNet-BusinessLayer", "DevNet-BusinessLayer\DevNet-BusinessLayer.csproj", "{20B19D72-C799-4D4F-8488-C1C3E7F63CE5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevNet-DataAccessLayer", "DevNet-DataAccessLayer\DevNet-DataAccessLayer.csproj", "{C08972F0-F96A-4354-A273-C420890A15F6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{20B19D72-C799-4D4F-8488-C1C3E7F63CE5} = {20B19D72-C799-4D4F-8488-C1C3E7F63CE5}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevNet-WebAPI", "DevNet-WebAPI\DevNet-WebAPI.csproj", "{AA50321C-4DA9-4CBA-9D29-EBE0CE3952C6}"
 	ProjectSection(ProjectDependencies) = postProject
+		{20B19D72-C799-4D4F-8488-C1C3E7F63CE5} = {20B19D72-C799-4D4F-8488-C1C3E7F63CE5}
 		{C08972F0-F96A-4354-A273-C420890A15F6} = {C08972F0-F96A-4354-A273-C420890A15F6}
 	EndProjectSection
 EndProject

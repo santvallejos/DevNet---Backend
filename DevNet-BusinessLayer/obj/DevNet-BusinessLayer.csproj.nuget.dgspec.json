@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Santi\\Desktop\\Proyectos\\DevNet\\DevNet-Backend\\DevNet-BusinessLayer\\DevNet-BusinessLayer.csproj": {}
+    "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-BusinessLayer\\DevNet-BusinessLayer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Santi\\Desktop\\Proyectos\\DevNet\\DevNet-Backend\\DevNet-BusinessLayer\\DevNet-BusinessLayer.csproj": {
+    "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-BusinessLayer\\DevNet-BusinessLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Santi\\Desktop\\Proyectos\\DevNet\\DevNet-Backend\\DevNet-BusinessLayer\\DevNet-BusinessLayer.csproj",
+        "projectUniqueName": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-BusinessLayer\\DevNet-BusinessLayer.csproj",
         "projectName": "DevNet-BusinessLayer",
-        "projectPath": "C:\\Users\\Santi\\Desktop\\Proyectos\\DevNet\\DevNet-Backend\\DevNet-BusinessLayer\\DevNet-BusinessLayer.csproj",
-        "packagesPath": "C:\\Users\\Santi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Santi\\Desktop\\Proyectos\\DevNet\\DevNet-Backend\\DevNet-BusinessLayer\\obj\\",
+        "projectPath": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-BusinessLayer\\DevNet-BusinessLayer.csproj",
+        "packagesPath": "C:\\Users\\juan_\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-BusinessLayer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Santi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\juan_\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -61,7 +61,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

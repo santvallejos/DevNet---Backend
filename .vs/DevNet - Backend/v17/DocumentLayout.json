@@ -1,7 +1,24 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Santi\\Desktop\\Proyectos\\DevNet\\DevNet-Backend\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C08972F0-F96A-4354-A273-C420890A15F6}|DevNet-DataAccessLayer\\DevNet-DataAccessLayer.csproj|c:\\users\\juan_\\onedrive\\documentos\\github\\juanmumbach\\proyecto-final-backend\\devnet-dataaccesslayer\\data\\devnetdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C08972F0-F96A-4354-A273-C420890A15F6}|DevNet-DataAccessLayer\\DevNet-DataAccessLayer.csproj|solutionrelative:devnet-dataaccesslayer\\data\\devnetdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AA50321C-4DA9-4CBA-9D29-EBE0CE3952C6}|DevNet-WebAPI\\DevNet-WebAPI.csproj|c:\\users\\juan_\\onedrive\\documentos\\github\\juanmumbach\\proyecto-final-backend\\devnet-webapi\\devnet-webapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{AA50321C-4DA9-4CBA-9D29-EBE0CE3952C6}|DevNet-WebAPI\\DevNet-WebAPI.csproj|solutionrelative:devnet-webapi\\devnet-webapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C08972F0-F96A-4354-A273-C420890A15F6}|DevNet-DataAccessLayer\\DevNet-DataAccessLayer.csproj|c:\\users\\juan_\\onedrive\\documentos\\github\\juanmumbach\\proyecto-final-backend\\devnet-dataaccesslayer\\models\\follower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C08972F0-F96A-4354-A273-C420890A15F6}|DevNet-DataAccessLayer\\DevNet-DataAccessLayer.csproj|solutionrelative:devnet-dataaccesslayer\\models\\follower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C08972F0-F96A-4354-A273-C420890A15F6}|DevNet-DataAccessLayer\\DevNet-DataAccessLayer.csproj|c:\\users\\juan_\\onedrive\\documentos\\github\\juanmumbach\\proyecto-final-backend\\devnet-dataaccesslayer\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C08972F0-F96A-4354-A273-C420890A15F6}|DevNet-DataAccessLayer\\DevNet-DataAccessLayer.csproj|solutionrelative:devnet-dataaccesslayer\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,8 +26,60 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DevnetDBContext.cs",
+              "DocumentMoniker": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-DataAccessLayer\\Data\\DevnetDBContext.cs",
+              "RelativeDocumentMoniker": "DevNet-DataAccessLayer\\Data\\DevnetDBContext.cs",
+              "ToolTip": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-DataAccessLayer\\Data\\DevnetDBContext.cs*",
+              "RelativeToolTip": "DevNet-DataAccessLayer\\Data\\DevnetDBContext.cs*",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAEwBYAAAAbAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-13T03:08:07.068Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DevNet-WebAPI",
+              "DocumentMoniker": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-WebAPI\\DevNet-WebAPI.csproj",
+              "RelativeDocumentMoniker": "DevNet-WebAPI\\DevNet-WebAPI.csproj",
+              "ToolTip": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-WebAPI\\DevNet-WebAPI.csproj",
+              "RelativeToolTip": "DevNet-WebAPI\\DevNet-WebAPI.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-11-13T02:59:33.93Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Follower.cs",
+              "DocumentMoniker": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-DataAccessLayer\\Models\\Follower.cs",
+              "RelativeDocumentMoniker": "DevNet-DataAccessLayer\\Models\\Follower.cs",
+              "ToolTip": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-DataAccessLayer\\Models\\Follower.cs",
+              "RelativeToolTip": "DevNet-DataAccessLayer\\Models\\Follower.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAmwAwAAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-13T02:37:21.274Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-DataAccessLayer\\Models\\User.cs",
+              "RelativeDocumentMoniker": "DevNet-DataAccessLayer\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-DataAccessLayer\\Models\\User.cs",
+              "RelativeToolTip": "DevNet-DataAccessLayer\\Models\\User.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAsAAAAkAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-13T02:36:40.552Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
