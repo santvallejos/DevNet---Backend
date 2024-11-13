@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace DevNet_DataAccessLayer.Models
 {
-    public class Follow
+    public class Follower
     {
         //properties
-        public Guid UserId { get; set; }
-        public Guid FollowsUser { get; set; }
+        public Guid FollowerId { get; set; }
+        public Guid FollowedId { get; set; }
 
         public DateTime FollowedAt { get; set; }
     }

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-WebAPI\\DevNet-WebAPI.csproj": {}
+    "C:\\Users\\Santi\\Desktop\\Proyectos\\DevNet\\DevNet-Backend\\DevNet-WebAPI\\DevNet-WebAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-WebAPI\\DevNet-WebAPI.csproj": {
+    "C:\\Users\\Santi\\Desktop\\Proyectos\\DevNet\\DevNet-Backend\\DevNet-WebAPI\\DevNet-WebAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-WebAPI\\DevNet-WebAPI.csproj",
+        "projectUniqueName": "C:\\Users\\Santi\\Desktop\\Proyectos\\DevNet\\DevNet-Backend\\DevNet-WebAPI\\DevNet-WebAPI.csproj",
         "projectName": "DevNet-WebAPI",
-        "projectPath": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-WebAPI\\DevNet-WebAPI.csproj",
-        "packagesPath": "C:\\Users\\juan_\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-WebAPI\\obj\\",
+        "projectPath": "C:\\Users\\Santi\\Desktop\\Proyectos\\DevNet\\DevNet-Backend\\DevNet-WebAPI\\DevNet-WebAPI.csproj",
+        "packagesPath": "C:\\Users\\Santi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Santi\\Desktop\\Proyectos\\DevNet\\DevNet-Backend\\DevNet-WebAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\juan_\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Santi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -70,7 +70,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

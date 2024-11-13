@@ -6,17 +6,12 @@ using System.Threading.Tasks;
 
 namespace DevNet_DataAccessLayer.Models
 {
-    public class Notification
+    public class Comment
     {
-        //properties
         public Guid Id { get; set; }
-        public Guid UserId { get; set; }
-        public string Type { get; set; }
-        public string Text { get; set; }
-        public Guid RelatedUserId { get; set; }
         public Guid PostId { get; set; }
+        public Guid UserId { get; set; }
+        public string Text { get; set; }
         public DateTime CreatedAt { get; set; }
-        public Boolean IsRead { get; set; }
-
     }
 }

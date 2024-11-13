@@ -1,40 +1,7 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{C08972F0-F96A-4354-A273-C420890A15F6}|DevNet-DataAccessLayer\\DevNet-DataAccessLayer.csproj|c:\\users\\juan_\\onedrive\\documentos\\github\\juanmumbach\\proyecto-final-backend\\devnet-dataaccesslayer\\models\\userdev.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C08972F0-F96A-4354-A273-C420890A15F6}|DevNet-DataAccessLayer\\DevNet-DataAccessLayer.csproj|solutionrelative:devnet-dataaccesslayer\\models\\userdev.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C08972F0-F96A-4354-A273-C420890A15F6}|DevNet-DataAccessLayer\\DevNet-DataAccessLayer.csproj|c:\\users\\juan_\\onedrive\\documentos\\github\\juanmumbach\\proyecto-final-backend\\devnet-dataaccesslayer\\devnet-dataaccesslayer.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{C08972F0-F96A-4354-A273-C420890A15F6}|DevNet-DataAccessLayer\\DevNet-DataAccessLayer.csproj|solutionrelative:devnet-dataaccesslayer\\devnet-dataaccesslayer.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C08972F0-F96A-4354-A273-C420890A15F6}|DevNet-DataAccessLayer\\DevNet-DataAccessLayer.csproj|c:\\users\\juan_\\onedrive\\documentos\\github\\juanmumbach\\proyecto-final-backend\\devnet-dataaccesslayer\\models\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C08972F0-F96A-4354-A273-C420890A15F6}|DevNet-DataAccessLayer\\DevNet-DataAccessLayer.csproj|solutionrelative:devnet-dataaccesslayer\\models\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C08972F0-F96A-4354-A273-C420890A15F6}|DevNet-DataAccessLayer\\DevNet-DataAccessLayer.csproj|c:\\users\\juan_\\onedrive\\documentos\\github\\juanmumbach\\proyecto-final-backend\\devnet-dataaccesslayer\\models\\publication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C08972F0-F96A-4354-A273-C420890A15F6}|DevNet-DataAccessLayer\\DevNet-DataAccessLayer.csproj|solutionrelative:devnet-dataaccesslayer\\models\\publication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C08972F0-F96A-4354-A273-C420890A15F6}|DevNet-DataAccessLayer\\DevNet-DataAccessLayer.csproj|c:\\users\\juan_\\onedrive\\documentos\\github\\juanmumbach\\proyecto-final-backend\\devnet-dataaccesslayer\\models\\message.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C08972F0-F96A-4354-A273-C420890A15F6}|DevNet-DataAccessLayer\\DevNet-DataAccessLayer.csproj|solutionrelative:devnet-dataaccesslayer\\models\\message.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C08972F0-F96A-4354-A273-C420890A15F6}|DevNet-DataAccessLayer\\DevNet-DataAccessLayer.csproj|c:\\users\\juan_\\onedrive\\documentos\\github\\juanmumbach\\proyecto-final-backend\\devnet-dataaccesslayer\\models\\notification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C08972F0-F96A-4354-A273-C420890A15F6}|DevNet-DataAccessLayer\\DevNet-DataAccessLayer.csproj|solutionrelative:devnet-dataaccesslayer\\models\\notification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C08972F0-F96A-4354-A273-C420890A15F6}|DevNet-DataAccessLayer\\DevNet-DataAccessLayer.csproj|c:\\users\\juan_\\onedrive\\documentos\\github\\juanmumbach\\proyecto-final-backend\\devnet-dataaccesslayer\\models\\follow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C08972F0-F96A-4354-A273-C420890A15F6}|DevNet-DataAccessLayer\\DevNet-DataAccessLayer.csproj|solutionrelative:devnet-dataaccesslayer\\models\\follow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C08972F0-F96A-4354-A273-C420890A15F6}|DevNet-DataAccessLayer\\DevNet-DataAccessLayer.csproj|c:\\users\\juan_\\onedrive\\documentos\\github\\juanmumbach\\proyecto-final-backend\\devnet-dataaccesslayer\\models\\like.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C08972F0-F96A-4354-A273-C420890A15F6}|DevNet-DataAccessLayer\\DevNet-DataAccessLayer.csproj|solutionrelative:devnet-dataaccesslayer\\models\\like.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "WorkspaceRootPath": "C:\\Users\\Santi\\Desktop\\Proyectos\\DevNet\\DevNet-Backend\\",
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -42,112 +9,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": -1,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Like.cs",
-              "DocumentMoniker": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-DataAccessLayer\\Models\\Like.cs",
-              "RelativeDocumentMoniker": "DevNet-DataAccessLayer\\Models\\Like.cs",
-              "ToolTip": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-DataAccessLayer\\Models\\Like.cs",
-              "RelativeToolTip": "DevNet-DataAccessLayer\\Models\\Like.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAoAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-11T15:27:34.567Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Follow.cs",
-              "DocumentMoniker": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-DataAccessLayer\\Models\\Follow.cs",
-              "RelativeDocumentMoniker": "DevNet-DataAccessLayer\\Models\\Follow.cs",
-              "ToolTip": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-DataAccessLayer\\Models\\Follow.cs",
-              "RelativeToolTip": "DevNet-DataAccessLayer\\Models\\Follow.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAaAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-11T15:27:15.487Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Notification.cs",
-              "DocumentMoniker": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-DataAccessLayer\\Models\\Notification.cs",
-              "RelativeDocumentMoniker": "DevNet-DataAccessLayer\\Models\\Notification.cs",
-              "ToolTip": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-DataAccessLayer\\Models\\Notification.cs",
-              "RelativeToolTip": "DevNet-DataAccessLayer\\Models\\Notification.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAvAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-11T15:26:51.891Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Message.cs",
-              "DocumentMoniker": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-DataAccessLayer\\Models\\Message.cs",
-              "RelativeDocumentMoniker": "DevNet-DataAccessLayer\\Models\\Message.cs",
-              "ToolTip": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-DataAccessLayer\\Models\\Message.cs",
-              "RelativeToolTip": "DevNet-DataAccessLayer\\Models\\Message.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAvAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-11T15:26:28.095Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Publication.cs",
-              "DocumentMoniker": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-DataAccessLayer\\Models\\Publication.cs",
-              "RelativeDocumentMoniker": "DevNet-DataAccessLayer\\Models\\Publication.cs",
-              "ToolTip": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-DataAccessLayer\\Models\\Publication.cs",
-              "RelativeToolTip": "DevNet-DataAccessLayer\\Models\\Publication.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-11T15:26:11.57Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Role.cs",
-              "DocumentMoniker": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-DataAccessLayer\\Models\\Role.cs",
-              "RelativeDocumentMoniker": "DevNet-DataAccessLayer\\Models\\Role.cs",
-              "ToolTip": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-DataAccessLayer\\Models\\Role.cs",
-              "RelativeToolTip": "DevNet-DataAccessLayer\\Models\\Role.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAoAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-11T15:24:22.755Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "UserDev.cs",
-              "DocumentMoniker": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-DataAccessLayer\\Models\\UserDev.cs",
-              "RelativeDocumentMoniker": "DevNet-DataAccessLayer\\Models\\UserDev.cs",
-              "ToolTip": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-DataAccessLayer\\Models\\UserDev.cs",
-              "RelativeToolTip": "DevNet-DataAccessLayer\\Models\\UserDev.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-11T15:21:58.605Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "DevNet-DataAccessLayer",
-              "DocumentMoniker": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-DataAccessLayer\\DevNet-DataAccessLayer.csproj",
-              "RelativeDocumentMoniker": "DevNet-DataAccessLayer\\DevNet-DataAccessLayer.csproj",
-              "ToolTip": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-DataAccessLayer\\DevNet-DataAccessLayer.csproj",
-              "RelativeToolTip": "DevNet-DataAccessLayer\\DevNet-DataAccessLayer.csproj",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-11-11T15:20:32.55Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
