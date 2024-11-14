@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DevNet_DataAccessLayer.Data;
 using DevNet_DataAccessLayer.Models;
+using DevNet_WebAPI.Infrastructure.DTO;
 
 namespace DevNet_WebAPI.Controllers
 {
@@ -42,42 +43,19 @@ namespace DevNet_WebAPI.Controllers
             return like;
         }
 
-        // PUT: api/Likes/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutLike(Guid id, Like like)
-        {
-            if (id != like.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(like).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!LikeExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
+        
         // POST: api/Likes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Like>> PostLike(Like like)
+        public async Task<ActionResult<Like>> GiveLike(GiveLikeDto likeDto)
         {
+            Like like = new Like
+            {
+                Id = Guid.NewGuid(),
+                PostId = likeDto.PostId,
+                UserId = likeDto.UserId
+            };
+
             _context.Likes.Add(like);
             await _context.SaveChangesAsync();
 

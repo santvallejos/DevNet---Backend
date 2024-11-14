@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DevNet_DataAccessLayer.Data;
 using DevNet_DataAccessLayer.Models;
+using DevNet_WebAPI.Infrastructure.DTO;
 
 namespace DevNet_WebAPI.Controllers
 {
@@ -44,6 +45,8 @@ namespace DevNet_WebAPI.Controllers
 
         // PUT: api/Notifications/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /*
+         * Codigo comentado en caso de que se quiera poder editar las notificaciones
         [HttpPut("{id}")]
         public async Task<IActionResult> PutNotification(Guid id, Notification notification)
         {
@@ -72,12 +75,25 @@ namespace DevNet_WebAPI.Controllers
 
             return NoContent();
         }
+        */
 
         // POST: api/Notifications
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Notification>> PostNotification(Notification notification)
+        public async Task<ActionResult<Notification>> SendNotification(SendNotificationDto notificationDto)
         {
+            Notification notification = new Notification
+            {
+                Id = Guid.NewGuid(),
+                UserId = notificationDto.UserId,
+                Type = notificationDto.Type,
+                Text = notificationDto.Text,
+                RelatedUserId = notificationDto.UserId,
+                PostId = notificationDto.PostId,
+                CreatedAt = DateTime.Now,
+                IsRead = false
+            };
+
             _context.Notifications.Add(notification);
             await _context.SaveChangesAsync();
 

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DevNet_DataAccessLayer.Data;
 using DevNet_DataAccessLayer.Models;
+using DevNet_WebAPI.Infrastructure.DTO;
 
 namespace DevNet_WebAPI.Controllers
 {
@@ -44,8 +45,12 @@ namespace DevNet_WebAPI.Controllers
 
         // PUT: api/Chats/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        
+        /* Codigo comentado en caso de que se quiera que sea posible editar mensajes ya enviados
+         * 
+         * 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutChat(Guid id, Chat chat)
+        public async Task<IActionResult> EditChat(Guid id, Chat chat)
         {
             if (id != chat.Id)
             {
@@ -72,12 +77,23 @@ namespace DevNet_WebAPI.Controllers
 
             return NoContent();
         }
+        */
 
         // POST: api/Chats
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Chat>> PostChat(Chat chat)
+        public async Task<ActionResult<Chat>> SendChat(SendChatDto chatDto)
         {
+            Chat chat = new Chat
+            {
+                Id = Guid.NewGuid(),
+                IsRead = false,
+                ReceiverId = chatDto.ReceiverId,
+                SenderId = chatDto.SenderId,
+                SentAt = DateTime.Now,
+                Text = chatDto.Text
+            };
+
             _context.Chats.Add(chat);
             await _context.SaveChangesAsync();
 

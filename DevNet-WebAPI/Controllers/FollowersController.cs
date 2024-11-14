@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DevNet_DataAccessLayer.Data;
 using DevNet_DataAccessLayer.Models;
+using DevNet_WebAPI.Infrastructure.DTO;
 
 namespace DevNet_WebAPI.Controllers
 {
@@ -42,42 +43,18 @@ namespace DevNet_WebAPI.Controllers
             return follower;
         }
 
-        // PUT: api/Followers/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutFollower(Guid id, Follower follower)
-        {
-            if (id != follower.FollowerId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(follower).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!FollowerExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
+        
         // POST: api/Followers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Follower>> PostFollower(Follower follower)
+        public async Task<ActionResult<Follower>> AddFollower(AddFollowerDto followerDto)
         {
+            Follower follower = new Follower
+            {
+                FollowedAt = DateTime.Now,
+                FollowedId = followerDto.FollowedId,
+                FollowerId = followerDto.FollowerId
+            };
             _context.Followers.Add(follower);
             await _context.SaveChangesAsync();
 

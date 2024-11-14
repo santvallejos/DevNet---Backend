@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DevNet_DataAccessLayer.Data;
 using DevNet_DataAccessLayer.Models;
+using DevNet_WebAPI.Infrastructure.DTO;
 
 namespace DevNet_WebAPI.Controllers
 {
@@ -45,8 +46,19 @@ namespace DevNet_WebAPI.Controllers
         // PUT: api/Posts/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPost(Guid id, Post post)
+        public async Task<IActionResult> EditPost(Guid id, EditPostDto postDto)
         {
+            var post = await _context.Posts.FindAsync(id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            post.Text = postDto.Text;
+            post.MediaUrl = postDto.MediaUrl;
+            post.UpdatedAt = DateTime.Now;
+
+
             if (id != post.Id)
             {
                 return BadRequest();
@@ -76,8 +88,20 @@ namespace DevNet_WebAPI.Controllers
         // POST: api/Posts
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Post>> PostPost(Post post)
+        public async Task<ActionResult<Post>> NewPost(NewPostDto postDto)
         {
+            Post post = new Post
+            {
+                Id = Guid.NewGuid(),
+                UserId = postDto.UserId,
+                Text = postDto.Text,
+                MediaUrl = postDto.MediaUrl,
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now,
+                LikeCount = 0,
+                CommentCount = 0
+            };
+            
             _context.Posts.Add(post);
             await _context.SaveChangesAsync();
 

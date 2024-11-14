@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DevNet_DataAccessLayer.Data;
 using DevNet_DataAccessLayer.Models;
+using DevNet_WebAPI.Infrastructure.DTO;
 
 namespace DevNet_WebAPI.Controllers
 {
@@ -44,6 +45,8 @@ namespace DevNet_WebAPI.Controllers
 
         // PUT: api/Comments/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /*
+         * Comentado por si se agrega la opcion de editar comentarios
         [HttpPut("{id}")]
         public async Task<IActionResult> PutComment(Guid id, Comment comment)
         {
@@ -72,12 +75,22 @@ namespace DevNet_WebAPI.Controllers
 
             return NoContent();
         }
+        */
 
         // POST: api/Comments
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Comment>> PostComment(Comment comment)
+        public async Task<ActionResult<Comment>> PostComment(PostCommentDto commentDto)
         {
+            Comment comment = new Comment
+            {
+                Id = Guid.NewGuid(),
+                PostId = commentDto.PostId,
+                UserId = commentDto.UserId,
+                Text = commentDto.Text,
+                CreatedAt = DateTime.Now
+            };
+
             _context.Comments.Add(comment);
             await _context.SaveChangesAsync();
 
