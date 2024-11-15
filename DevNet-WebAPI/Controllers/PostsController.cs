@@ -46,7 +46,7 @@ namespace DevNet_WebAPI.Controllers
         // PUT: api/Posts/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditPost(Guid id, EditPostDto postDto)
+        public async Task<IActionResult> EditPost(Guid id, [FromBody] EditPostDto postDto)
         {
             var post = await _context.Posts.FindAsync(id);
             if (post == null)
@@ -88,7 +88,7 @@ namespace DevNet_WebAPI.Controllers
         // POST: api/Posts
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Post>> NewPost(NewPostDto postDto)
+        public async Task<ActionResult<Post>> NewPost([FromBody] NewPostDto postDto)
         {
             Post post = new Post
             {

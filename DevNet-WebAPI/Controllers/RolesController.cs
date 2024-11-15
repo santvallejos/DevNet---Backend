@@ -45,7 +45,7 @@ namespace DevNet_WebAPI.Controllers
         // PUT: api/Roles/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRole(Guid id, Role role)
+        public async Task<IActionResult> PutRole(Guid id, [FromBody] Role role)
         {
             if (id != role.Id)
             {
@@ -76,7 +76,7 @@ namespace DevNet_WebAPI.Controllers
         // POST: api/Roles
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Role>> PostRole(Role role)
+        public async Task<ActionResult<Role>> PostRole([FromBody] Role role)
         {
             _context.Roles.Add(role);
             await _context.SaveChangesAsync();

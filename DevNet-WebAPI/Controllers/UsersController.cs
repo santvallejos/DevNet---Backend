@@ -73,7 +73,7 @@ namespace DevNet_WebAPI.Controllers
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditUser(Guid id, EditUserDto userDto)
+        public async Task<IActionResult> EditUser(Guid id, [FromBody] EditUserDto userDto)
         {
             var user = await _context.Users.FindAsync(id);
             if (user == null)
@@ -114,7 +114,7 @@ namespace DevNet_WebAPI.Controllers
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<User>> CreateUser(CreateUserDto userDto)
+        public async Task<ActionResult<User>> CreateUser([FromBody] CreateUserDto userDto)
         {
             User user = new User
             {

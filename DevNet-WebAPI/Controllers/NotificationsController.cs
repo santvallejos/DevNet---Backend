@@ -80,7 +80,7 @@ namespace DevNet_WebAPI.Controllers
         // POST: api/Notifications
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Notification>> SendNotification(SendNotificationDto notificationDto)
+        public async Task<ActionResult<Notification>> SendNotification([FromBody] SendNotificationDto notificationDto)
         {
             Notification notification = new Notification
             {
@@ -119,6 +119,44 @@ namespace DevNet_WebAPI.Controllers
         private bool NotificationExists(Guid id)
         {
             return _context.Notifications.Any(e => e.Id == id);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> CheckAsSeenNotification(Guid id)
+        {
+            var notification = _context.Notifications.Find(id);
+
+            if (notification == null)
+            {
+                return NotFound();
+            }
+
+            notification.IsRead = true;
+
+            if (id != notification.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(notification).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!NotificationExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
         }
     }
 }

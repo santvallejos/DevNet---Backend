@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using DevNet_DataAccessLayer.Data;
 using DevNet_DataAccessLayer.Models;
 using DevNet_WebAPI.Infrastructure.DTO;
+using Microsoft.Extensions.Hosting;
 
 namespace DevNet_WebAPI.Controllers
 {
@@ -82,7 +83,7 @@ namespace DevNet_WebAPI.Controllers
         // POST: api/Chats
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Chat>> SendChat(SendChatDto chatDto)
+        public async Task<ActionResult<Chat>> SendChat([FromBody] SendChatDto chatDto)
         {
             Chat chat = new Chat
             {
@@ -119,6 +120,44 @@ namespace DevNet_WebAPI.Controllers
         private bool ChatExists(Guid id)
         {
             return _context.Chats.Any(e => e.Id == id);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> CheckAsSeenChat(Guid id)
+        {
+            var chat = _context.Chats.Find(id);
+
+            if (chat == null)
+            {
+                return NotFound();
+            }
+
+            chat.IsRead = true;
+
+            if (id != chat.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(chat).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ChatExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
         }
     }
 }

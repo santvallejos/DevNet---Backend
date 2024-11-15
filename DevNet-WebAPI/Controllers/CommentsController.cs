@@ -80,7 +80,7 @@ namespace DevNet_WebAPI.Controllers
         // POST: api/Comments
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Comment>> PostComment(PostCommentDto commentDto)
+        public async Task<ActionResult<Comment>> PostComment([FromBody] PostCommentDto commentDto)
         {
             Comment comment = new Comment
             {

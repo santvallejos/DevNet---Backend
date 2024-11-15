@@ -1,156 +1,19 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{AA50321C-4DA9-4CBA-9D29-EBE0CE3952C6}|DevNet-WebAPI\\DevNet-WebAPI.csproj|c:\\users\\juan_\\onedrive\\documentos\\github\\juanmumbach\\proyecto-final-backend\\devnet-webapi\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AA50321C-4DA9-4CBA-9D29-EBE0CE3952C6}|DevNet-WebAPI\\DevNet-WebAPI.csproj|solutionrelative:devnet-webapi\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AA50321C-4DA9-4CBA-9D29-EBE0CE3952C6}|DevNet-WebAPI\\DevNet-WebAPI.csproj|c:\\users\\juan_\\onedrive\\documentos\\github\\juanmumbach\\proyecto-final-backend\\devnet-webapi\\controllers\\rolescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AA50321C-4DA9-4CBA-9D29-EBE0CE3952C6}|DevNet-WebAPI\\DevNet-WebAPI.csproj|solutionrelative:devnet-webapi\\controllers\\rolescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AA50321C-4DA9-4CBA-9D29-EBE0CE3952C6}|DevNet-WebAPI\\DevNet-WebAPI.csproj|c:\\users\\juan_\\onedrive\\documentos\\github\\juanmumbach\\proyecto-final-backend\\devnet-webapi\\controllers\\postscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AA50321C-4DA9-4CBA-9D29-EBE0CE3952C6}|DevNet-WebAPI\\DevNet-WebAPI.csproj|solutionrelative:devnet-webapi\\controllers\\postscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AA50321C-4DA9-4CBA-9D29-EBE0CE3952C6}|DevNet-WebAPI\\DevNet-WebAPI.csproj|c:\\users\\juan_\\onedrive\\documentos\\github\\juanmumbach\\proyecto-final-backend\\devnet-webapi\\controllers\\notificationscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AA50321C-4DA9-4CBA-9D29-EBE0CE3952C6}|DevNet-WebAPI\\DevNet-WebAPI.csproj|solutionrelative:devnet-webapi\\controllers\\notificationscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AA50321C-4DA9-4CBA-9D29-EBE0CE3952C6}|DevNet-WebAPI\\DevNet-WebAPI.csproj|c:\\users\\juan_\\onedrive\\documentos\\github\\juanmumbach\\proyecto-final-backend\\devnet-webapi\\controllers\\likescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AA50321C-4DA9-4CBA-9D29-EBE0CE3952C6}|DevNet-WebAPI\\DevNet-WebAPI.csproj|solutionrelative:devnet-webapi\\controllers\\likescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AA50321C-4DA9-4CBA-9D29-EBE0CE3952C6}|DevNet-WebAPI\\DevNet-WebAPI.csproj|c:\\users\\juan_\\onedrive\\documentos\\github\\juanmumbach\\proyecto-final-backend\\devnet-webapi\\controllers\\followerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AA50321C-4DA9-4CBA-9D29-EBE0CE3952C6}|DevNet-WebAPI\\DevNet-WebAPI.csproj|solutionrelative:devnet-webapi\\controllers\\followerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AA50321C-4DA9-4CBA-9D29-EBE0CE3952C6}|DevNet-WebAPI\\DevNet-WebAPI.csproj|c:\\users\\juan_\\onedrive\\documentos\\github\\juanmumbach\\proyecto-final-backend\\devnet-webapi\\controllers\\commentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AA50321C-4DA9-4CBA-9D29-EBE0CE3952C6}|DevNet-WebAPI\\DevNet-WebAPI.csproj|solutionrelative:devnet-webapi\\controllers\\commentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AA50321C-4DA9-4CBA-9D29-EBE0CE3952C6}|DevNet-WebAPI\\DevNet-WebAPI.csproj|c:\\users\\juan_\\onedrive\\documentos\\github\\juanmumbach\\proyecto-final-backend\\devnet-webapi\\controllers\\chatscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AA50321C-4DA9-4CBA-9D29-EBE0CE3952C6}|DevNet-WebAPI\\DevNet-WebAPI.csproj|solutionrelative:devnet-webapi\\controllers\\chatscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "DockedWidth": 230,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "UsersController.cs",
-              "DocumentMoniker": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-WebAPI\\Controllers\\UsersController.cs",
-              "RelativeDocumentMoniker": "DevNet-WebAPI\\Controllers\\UsersController.cs",
-              "ToolTip": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-WebAPI\\Controllers\\UsersController.cs",
-              "RelativeToolTip": "DevNet-WebAPI\\Controllers\\UsersController.cs",
-              "ViewState": "AQIAAB4AAAAAAAAAAAAowCcAAAANAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T03:30:49.862Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "RolesController.cs",
-              "DocumentMoniker": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-WebAPI\\Controllers\\RolesController.cs",
-              "RelativeDocumentMoniker": "DevNet-WebAPI\\Controllers\\RolesController.cs",
-              "ToolTip": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-WebAPI\\Controllers\\RolesController.cs",
-              "RelativeToolTip": "DevNet-WebAPI\\Controllers\\RolesController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T03:30:17.276Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "PostsController.cs",
-              "DocumentMoniker": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-WebAPI\\Controllers\\PostsController.cs",
-              "RelativeDocumentMoniker": "DevNet-WebAPI\\Controllers\\PostsController.cs",
-              "ToolTip": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-WebAPI\\Controllers\\PostsController.cs",
-              "RelativeToolTip": "DevNet-WebAPI\\Controllers\\PostsController.cs",
-              "ViewState": "AQIAACAAAAAAAAAAAAA9wAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T03:29:43.31Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "NotificationsController.cs",
-              "DocumentMoniker": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-WebAPI\\Controllers\\NotificationsController.cs",
-              "RelativeDocumentMoniker": "DevNet-WebAPI\\Controllers\\NotificationsController.cs",
-              "ToolTip": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-WebAPI\\Controllers\\NotificationsController.cs",
-              "RelativeToolTip": "DevNet-WebAPI\\Controllers\\NotificationsController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T03:29:05.28Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "LikesController.cs",
-              "DocumentMoniker": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-WebAPI\\Controllers\\LikesController.cs",
-              "RelativeDocumentMoniker": "DevNet-WebAPI\\Controllers\\LikesController.cs",
-              "ToolTip": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-WebAPI\\Controllers\\LikesController.cs",
-              "RelativeToolTip": "DevNet-WebAPI\\Controllers\\LikesController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T03:28:37.595Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "FollowersController.cs",
-              "DocumentMoniker": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-WebAPI\\Controllers\\FollowersController.cs",
-              "RelativeDocumentMoniker": "DevNet-WebAPI\\Controllers\\FollowersController.cs",
-              "ToolTip": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-WebAPI\\Controllers\\FollowersController.cs",
-              "RelativeToolTip": "DevNet-WebAPI\\Controllers\\FollowersController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T03:27:59.988Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "CommentsController.cs",
-              "DocumentMoniker": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-WebAPI\\Controllers\\CommentsController.cs",
-              "RelativeDocumentMoniker": "DevNet-WebAPI\\Controllers\\CommentsController.cs",
-              "ToolTip": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-WebAPI\\Controllers\\CommentsController.cs",
-              "RelativeToolTip": "DevNet-WebAPI\\Controllers\\CommentsController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T03:26:06.831Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ChatsController.cs",
-              "DocumentMoniker": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-WebAPI\\Controllers\\ChatsController.cs",
-              "RelativeDocumentMoniker": "DevNet-WebAPI\\Controllers\\ChatsController.cs",
-              "ToolTip": "C:\\Users\\juan_\\OneDrive\\Documentos\\GitHub\\juanmumbach\\Proyecto-final-backend\\DevNet-WebAPI\\Controllers\\ChatsController.cs",
-              "RelativeToolTip": "DevNet-WebAPI\\Controllers\\ChatsController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T03:19:42.886Z",
-              "EditorCaption": ""
             }
           ]
         }

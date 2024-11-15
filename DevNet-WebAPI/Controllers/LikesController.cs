@@ -47,7 +47,7 @@ namespace DevNet_WebAPI.Controllers
         // POST: api/Likes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Like>> GiveLike(GiveLikeDto likeDto)
+        public async Task<ActionResult<Like>> GiveLike([FromBody] GiveLikeDto likeDto)
         {
             Like like = new Like
             {
