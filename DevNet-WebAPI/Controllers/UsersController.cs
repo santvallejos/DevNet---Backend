@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using DevNet_DataAccessLayer.Data;
 using DevNet_DataAccessLayer.Models;
 using DevNet_WebAPI.Infrastructure.DTO;
+using DevNet_WebAPI.Services;
 
 namespace DevNet_WebAPI.Controllers
 {
@@ -16,10 +17,12 @@ namespace DevNet_WebAPI.Controllers
     public class UsersController : ControllerBase
     {
         private readonly DevnetDBContext _context;
+        private readonly UserAccountService _userAccountService;
 
-        public UsersController(DevnetDBContext context)
+        public UsersController(DevnetDBContext context,UserAccountService userAccount)
         {
             _context = context;
+            _userAccountService = userAccount;
         }
 
         // GET: api/Users
@@ -154,6 +157,34 @@ namespace DevNet_WebAPI.Controllers
         private bool UserExists(Guid id)
         {
             return _context.Users.Any(e => e.Id == id);
+        }
+
+        [HttpPut("{id}/username")]
+        public async Task<IActionResult> UpdateUsername(Guid id, [FromBody] string newUsername)
+        {
+            var user = await _userAccountService.UpdateUsernameAsync(id, newUsername);
+            return user == null ? NotFound() : NoContent();
+        }
+
+        [HttpPut("{id}/email")]
+        public async Task<IActionResult> UpdateEmail(Guid id, [FromBody] string newEmail)
+        {
+            var user = await _userAccountService.UpdateEmailAsync(id, newEmail);
+            return user == null ? NotFound() : NoContent();
+        }
+
+        [HttpPut("{id}/password")]
+        public async Task<IActionResult> UpdatePassword(Guid id, [FromBody] string newPassword)
+        {
+            var user = await _userAccountService.UpdatePasswordAsync(id, newPassword);
+            return user == null ? NotFound() : NoContent();
+        }
+
+        [HttpPut("{id}/role")]
+        public async Task<IActionResult> UpdateRole(Guid id, [FromBody] Guid newRoleId)
+        {
+            var user = await _userAccountService.UpdateRoleAsync(id, newRoleId);
+            return user == null ? NotFound() : NoContent();
         }
     }
 }
