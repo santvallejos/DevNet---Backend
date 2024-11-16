@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using DevNet_DataAccessLayer.Data;
 using DevNet_DataAccessLayer.Models;
 using DevNet_WebAPI.Infrastructure.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DevNet_WebAPI.Controllers
 {
@@ -24,6 +25,7 @@ namespace DevNet_WebAPI.Controllers
 
         // GET: api/Likes
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Like>>> GetLikes()
         {
             return await _context.Likes.ToListAsync();
@@ -31,6 +33,7 @@ namespace DevNet_WebAPI.Controllers
 
         // GET: api/Likes/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<Like>> GetLike(Guid id)
         {
             var like = await _context.Likes.FindAsync(id);
@@ -47,6 +50,7 @@ namespace DevNet_WebAPI.Controllers
         // POST: api/Likes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<Like>> GiveLike([FromBody] GiveLikeDto likeDto)
         {
             Like like = new Like
@@ -64,6 +68,7 @@ namespace DevNet_WebAPI.Controllers
 
         // DELETE: api/Likes/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteLike(Guid id)
         {
             var like = await _context.Likes.FindAsync(id);

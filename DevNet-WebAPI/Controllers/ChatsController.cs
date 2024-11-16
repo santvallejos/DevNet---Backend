@@ -9,6 +9,7 @@ using DevNet_DataAccessLayer.Data;
 using DevNet_DataAccessLayer.Models;
 using DevNet_WebAPI.Infrastructure.DTO;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DevNet_WebAPI.Controllers
 {
@@ -25,6 +26,7 @@ namespace DevNet_WebAPI.Controllers
 
         // GET: api/Chats
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Chat>>> GetChats()
         {
             return await _context.Chats.ToListAsync();
@@ -32,6 +34,7 @@ namespace DevNet_WebAPI.Controllers
 
         // GET: api/Chats/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<Chat>> GetChat(Guid id)
         {
             var chat = await _context.Chats.FindAsync(id);
@@ -83,6 +86,7 @@ namespace DevNet_WebAPI.Controllers
         // POST: api/Chats
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<Chat>> SendChat([FromBody] SendChatDto chatDto)
         {
             Chat chat = new Chat
@@ -103,6 +107,7 @@ namespace DevNet_WebAPI.Controllers
 
         // DELETE: api/Chats/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteChat(Guid id)
         {
             var chat = await _context.Chats.FindAsync(id);
@@ -123,6 +128,7 @@ namespace DevNet_WebAPI.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<ActionResult> CheckAsSeenChat(Guid id)
         {
             var chat = _context.Chats.Find(id);

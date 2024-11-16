@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using DevNet_DataAccessLayer.Data;
 using DevNet_DataAccessLayer.Models;
 using DevNet_WebAPI.Infrastructure.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DevNet_WebAPI.Controllers
 {
@@ -24,6 +25,7 @@ namespace DevNet_WebAPI.Controllers
 
         // GET: api/Posts
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Post>>> GetPosts()
         {
             return await _context.Posts.ToListAsync();
@@ -31,6 +33,7 @@ namespace DevNet_WebAPI.Controllers
 
         // GET: api/Posts/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<Post>> GetPost(Guid id)
         {
             var post = await _context.Posts.FindAsync(id);
@@ -46,6 +49,7 @@ namespace DevNet_WebAPI.Controllers
         // PUT: api/Posts/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> EditPost(Guid id, [FromBody] EditPostDto postDto)
         {
             var post = await _context.Posts.FindAsync(id);
@@ -88,6 +92,7 @@ namespace DevNet_WebAPI.Controllers
         // POST: api/Posts
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<Post>> NewPost([FromBody] NewPostDto postDto)
         {
             Post post = new Post
@@ -110,6 +115,7 @@ namespace DevNet_WebAPI.Controllers
 
         // DELETE: api/Posts/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeletePost(Guid id)
         {
             var post = await _context.Posts.FindAsync(id);

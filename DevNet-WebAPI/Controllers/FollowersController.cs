@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using DevNet_DataAccessLayer.Data;
 using DevNet_DataAccessLayer.Models;
 using DevNet_WebAPI.Infrastructure.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DevNet_WebAPI.Controllers
 {
@@ -24,6 +25,7 @@ namespace DevNet_WebAPI.Controllers
 
         // GET: api/Followers
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Follower>>> GetFollowers()
         {
             return await _context.Followers.ToListAsync();
@@ -31,6 +33,7 @@ namespace DevNet_WebAPI.Controllers
 
         // GET: api/Followers/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<Follower>> GetFollower(Guid id)
         {
             var follower = await _context.Followers.FindAsync(id);
@@ -47,6 +50,7 @@ namespace DevNet_WebAPI.Controllers
         // POST: api/Followers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<Follower>> AddFollower([FromBody] AddFollowerDto followerDto)
         {
             Follower follower = new Follower
@@ -63,6 +67,7 @@ namespace DevNet_WebAPI.Controllers
 
         // DELETE: api/Followers/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteFollower(Guid id)
         {
             var follower = await _context.Followers.FindAsync(id);

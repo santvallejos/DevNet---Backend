@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DevNet_DataAccessLayer.Data;
 using DevNet_DataAccessLayer.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DevNet_WebAPI.Controllers
 {
@@ -23,6 +24,7 @@ namespace DevNet_WebAPI.Controllers
 
         // GET: api/Roles
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Role>>> GetRoles()
         {
             return await _context.Roles.ToListAsync();
@@ -30,6 +32,7 @@ namespace DevNet_WebAPI.Controllers
 
         // GET: api/Roles/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<Role>> GetRole(Guid id)
         {
             var role = await _context.Roles.FindAsync(id);
@@ -45,6 +48,7 @@ namespace DevNet_WebAPI.Controllers
         // PUT: api/Roles/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutRole(Guid id, [FromBody] Role role)
         {
             if (id != role.Id)
@@ -76,6 +80,7 @@ namespace DevNet_WebAPI.Controllers
         // POST: api/Roles
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<Role>> PostRole([FromBody] Role role)
         {
             _context.Roles.Add(role);
@@ -86,6 +91,7 @@ namespace DevNet_WebAPI.Controllers
 
         // DELETE: api/Roles/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteRole(Guid id)
         {
             var role = await _context.Roles.FindAsync(id);

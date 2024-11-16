@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using DevNet_DataAccessLayer.Data;
 using DevNet_DataAccessLayer.Models;
 using DevNet_WebAPI.Infrastructure.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DevNet_WebAPI.Controllers
 {
@@ -24,6 +25,7 @@ namespace DevNet_WebAPI.Controllers
 
         // GET: api/Notifications
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Notification>>> GetNotifications()
         {
             return await _context.Notifications.ToListAsync();
@@ -31,6 +33,7 @@ namespace DevNet_WebAPI.Controllers
 
         // GET: api/Notifications/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<Notification>> GetNotification(Guid id)
         {
             var notification = await _context.Notifications.FindAsync(id);
@@ -80,6 +83,7 @@ namespace DevNet_WebAPI.Controllers
         // POST: api/Notifications
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<Notification>> SendNotification([FromBody] SendNotificationDto notificationDto)
         {
             Notification notification = new Notification
@@ -102,6 +106,7 @@ namespace DevNet_WebAPI.Controllers
 
         // DELETE: api/Notifications/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteNotification(Guid id)
         {
             var notification = await _context.Notifications.FindAsync(id);
@@ -122,6 +127,7 @@ namespace DevNet_WebAPI.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<ActionResult> CheckAsSeenNotification(Guid id)
         {
             var notification = _context.Notifications.Find(id);

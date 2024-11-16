@@ -9,6 +9,7 @@ using DevNet_DataAccessLayer.Data;
 using DevNet_DataAccessLayer.Models;
 using DevNet_WebAPI.Infrastructure.DTO;
 using DevNet_WebAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DevNet_WebAPI.Controllers
 {
@@ -27,6 +28,7 @@ namespace DevNet_WebAPI.Controllers
 
         // GET: api/Users
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<GetUserDto>>> GetUsers()
         {
             var users = await _context.Users.ToListAsync();
@@ -49,6 +51,7 @@ namespace DevNet_WebAPI.Controllers
 
         // GET: api/Users/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<GetUserDto>> GetUser(Guid id)
         {
             var user = await _context.Users.FindAsync(id);
@@ -76,6 +79,7 @@ namespace DevNet_WebAPI.Controllers
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> EditUser(Guid id, [FromBody] EditUserDto userDto)
         {
             var user = await _context.Users.FindAsync(id);
@@ -117,6 +121,7 @@ namespace DevNet_WebAPI.Controllers
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<User>> CreateUser([FromBody] CreateUserDto userDto)
         {
             User user = new User
@@ -140,6 +145,7 @@ namespace DevNet_WebAPI.Controllers
 
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteUser(Guid id)
         {
             var user = await _context.Users.FindAsync(id);
@@ -160,6 +166,7 @@ namespace DevNet_WebAPI.Controllers
         }
 
         [HttpPut("{id}/username")]
+        [Authorize]
         public async Task<IActionResult> UpdateUsername(Guid id, [FromBody] string newUsername)
         {
             var user = await _userAccountService.UpdateUsernameAsync(id, newUsername);
@@ -167,6 +174,7 @@ namespace DevNet_WebAPI.Controllers
         }
 
         [HttpPut("{id}/email")]
+        [Authorize]
         public async Task<IActionResult> UpdateEmail(Guid id, [FromBody] string newEmail)
         {
             var user = await _userAccountService.UpdateEmailAsync(id, newEmail);
@@ -174,6 +182,7 @@ namespace DevNet_WebAPI.Controllers
         }
 
         [HttpPut("{id}/password")]
+        [Authorize]
         public async Task<IActionResult> UpdatePassword(Guid id, [FromBody] string newPassword)
         {
             var user = await _userAccountService.UpdatePasswordAsync(id, newPassword);
@@ -181,6 +190,7 @@ namespace DevNet_WebAPI.Controllers
         }
 
         [HttpPut("{id}/role")]
+        [Authorize]
         public async Task<IActionResult> UpdateRole(Guid id, [FromBody] Guid newRoleId)
         {
             var user = await _userAccountService.UpdateRoleAsync(id, newRoleId);

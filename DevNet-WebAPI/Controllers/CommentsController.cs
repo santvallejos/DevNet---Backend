@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using DevNet_DataAccessLayer.Data;
 using DevNet_DataAccessLayer.Models;
 using DevNet_WebAPI.Infrastructure.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DevNet_WebAPI.Controllers
 {
@@ -24,6 +25,7 @@ namespace DevNet_WebAPI.Controllers
 
         // GET: api/Comments
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Comment>>> GetComments()
         {
             return await _context.Comments.ToListAsync();
@@ -31,6 +33,7 @@ namespace DevNet_WebAPI.Controllers
 
         // GET: api/Comments/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<Comment>> GetComment(Guid id)
         {
             var comment = await _context.Comments.FindAsync(id);
@@ -80,6 +83,7 @@ namespace DevNet_WebAPI.Controllers
         // POST: api/Comments
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<Comment>> PostComment([FromBody] PostCommentDto commentDto)
         {
             Comment comment = new Comment
@@ -99,6 +103,7 @@ namespace DevNet_WebAPI.Controllers
 
         // DELETE: api/Comments/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteComment(Guid id)
         {
             var comment = await _context.Comments.FindAsync(id);
