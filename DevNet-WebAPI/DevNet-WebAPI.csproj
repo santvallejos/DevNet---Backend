@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DevNet-BusinessLayer\DevNet-BusinessLayer.csproj" />
     <ProjectReference Include="..\DevNet-DataAccessLayer\DevNet-DataAccessLayer.csproj" />
   </ItemGroup>
 

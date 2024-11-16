@@ -4,6 +4,7 @@ using DevNet_DataAccessLayer.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DevNet_DataAccessLayer.Migrations
 {
     [DbContext(typeof(DevnetDBContext))]
-    partial class DevnetDBContextModelSnapshot : ModelSnapshot
+    [Migration("20241116183620_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -132,10 +135,10 @@ namespace DevNet_DataAccessLayer.Migrations
                     b.Property<bool>("IsRead")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("PostId")
+                    b.Property<Guid>("PostId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("RelatedUserId")
+                    b.Property<Guid>("RelatedUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Text")
@@ -176,13 +179,14 @@ namespace DevNet_DataAccessLayer.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("MediaUrl")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Text")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("UpdatedAt")
+                    b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("UserId")
@@ -236,6 +240,7 @@ namespace DevNet_DataAccessLayer.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProfileImageUrl")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("RoleId")
@@ -333,12 +338,14 @@ namespace DevNet_DataAccessLayer.Migrations
                     b.HasOne("DevNet_DataAccessLayer.Models.Post", "Post")
                         .WithMany()
                         .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("DevNet_DataAccessLayer.Models.User", "RelatedUser")
                         .WithMany()
                         .HasForeignKey("RelatedUserId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("DevNet_DataAccessLayer.Models.User", "User")
                         .WithMany()

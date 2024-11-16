@@ -13,17 +13,11 @@ builder.Services.AddScoped<JwtService>();
 builder.Services.AddScoped<UserAccountService>();
 
 //Añadir Entity Framework Core al proyecto y configurar opciones de DbContext
-builder.Services.AddDbContext<DevnetDBContext>
-    (
-        options =>
-            options.UseSqlServer(
-                builder.Configuration.GetConnectionString("DefaultConnection")
-            )
-    );
+builder.Services.AddDbContext<DevnetDBContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 var jwtKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY");
-Console.WriteLine($"JWT_SECRET_KEY: {jwtKey}");
 var jwtKeyBytes = Encoding.UTF8.GetBytes(jwtKey);
 
 // Configuración de JWT

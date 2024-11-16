@@ -32,7 +32,11 @@ namespace DevNet_DataAccessLayer.Data
             modelBuilder.Entity<User>()
                 .OwnsOne(u => u.Profile);
             */
-
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes()
+        .SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
