@@ -9,6 +9,7 @@ using DevNet_DataAccessLayer.Data;
 using DevNet_DataAccessLayer.Models;
 using DevNet_WebAPI.Infrastructure.DTO;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace DevNet_WebAPI.Controllers
 {
@@ -52,10 +53,29 @@ namespace DevNet_WebAPI.Controllers
         [Authorize]
         public async Task<IActionResult> EditPost(Guid id, [FromBody] EditPostDto postDto)
         {
+            if (id != postDto.Id)
+            {
+                return BadRequest();
+            }
+
+            // Obtener el UserId del token JWT
+            var userIdFromToken = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            // Verificar que el UserId del token coincida con el UserId del postDto
+            if (userIdFromToken != postDto.UserId.ToString())
+            {
+                return Unauthorized("El usuario que intenta editar post no coincide con el que ha iniciado sesion.");
+            }
+
             var post = await _context.Posts.FindAsync(id);
             if (post == null)
             {
                 return NotFound();
+            }
+
+            if (post.UserId != postDto.UserId)
+            {
+                return Unauthorized("No tienes permiso de editar este post.");
             }
 
             post.Text = postDto.Text;
@@ -95,6 +115,15 @@ namespace DevNet_WebAPI.Controllers
         [Authorize]
         public async Task<ActionResult<Post>> NewPost([FromBody] NewPostDto postDto)
         {
+            // Obtener el UserId del token JWT
+            var userIdFromToken = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            // Verificar que el UserId del token coincida con el UserId del postDto
+            if (userIdFromToken != postDto.UserId.ToString())
+            {
+                return Unauthorized("El usuario que intenta crear el nuevo post no coincide con el que ha iniciado sesion.");
+            }
+
             Post post = new Post
             {
                 Id = Guid.NewGuid(),
@@ -116,12 +145,31 @@ namespace DevNet_WebAPI.Controllers
         // DELETE: api/Posts/5
         [HttpDelete("{id}")]
         [Authorize]
-        public async Task<IActionResult> DeletePost(Guid id)
+        public async Task<IActionResult> DeletePost(Guid id, [FromBody] DeletePostDto deleteDto)
         {
+            if (id != deleteDto.PostId)
+            {
+                return BadRequest();
+            }
+
+            // Obtener el UserId del token JWT
+            var userIdFromToken = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            // Verificar que el UserId del token coincida con el UserId del postDto
+            if (userIdFromToken != deleteDto.UserId.ToString())
+            {
+                return Unauthorized("El usuario que intenta eliminar el post no es el propietario del mismo.");
+            }
+
             var post = await _context.Posts.FindAsync(id);
             if (post == null)
             {
                 return NotFound();
+            }
+
+            if (post.UserId != deleteDto.UserId)
+            {
+                return Unauthorized("No tienes permiso de borrar este post.");
             }
 
             _context.Posts.Remove(post);
