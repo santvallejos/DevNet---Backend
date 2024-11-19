@@ -11,6 +11,7 @@ using DevNet_WebAPI.Infrastructure.DTO;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using Microsoft.Extensions.Hosting;
+using DevNet_BusinessLayer.Services;
 
 namespace DevNet_WebAPI.Controllers
 {
@@ -19,10 +20,12 @@ namespace DevNet_WebAPI.Controllers
     public class CommentsController : ControllerBase
     {
         private readonly DevnetDBContext _context;
+        private readonly CommentService _commentService;
 
-        public CommentsController(DevnetDBContext context)
+        public CommentsController(DevnetDBContext context, CommentService commentService)
         {
             _context = context;
+            _commentService = commentService;
         }
 
         // GET: api/Comments
@@ -30,7 +33,11 @@ namespace DevNet_WebAPI.Controllers
         [Authorize]
         public async Task<ActionResult<IEnumerable<Comment>>> GetComments()
         {
-            return await _context.Comments.ToListAsync();
+            var result = await _commentService.GetCommentsAsync();
+            if (result != null) return Ok(result);
+
+            return BadRequest("No se pudieron obtener los comentarios.");
+            
         }
         
         // GET: api/Comments/5
@@ -38,75 +45,22 @@ namespace DevNet_WebAPI.Controllers
         [Authorize]
         public async Task<ActionResult<Comment>> GetComment(Guid id)
         {
-            var comment = await _context.Comments.FindAsync(id);
+            var result = await _commentService.GetCommentAsync(id);
+            if (result != null) return Ok(result);
 
-            if (comment == null)
-            {
-                return NotFound();
-            }
-
-            return comment;
+            return BadRequest("No se pudo obtener el comentario.");
         }
 
-        // PUT: api/Comments/5
+        // PUT: api/Comments/edit/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPut("edit/{id}")]
         [Authorize]
         public async Task<IActionResult> EditComment(Guid id, [FromBody] EditCommentDto commentDto)
         {
-            if (id != commentDto.Id)
-            {
-                return BadRequest();
-            }
+            var result = await _commentService.EditCommentAsync(id, commentDto);
 
-            // Obtener el UserId del token JWT
-            var userIdFromToken = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            // Verificar que el UserId del token coincida con el UserId del postDto
-            if (userIdFromToken != commentDto.UserId.ToString())
-            {
-                return Unauthorized("El usuario que intenta editar el comentario no coincide con el que ha iniciado sesion.");
-            }
-
-            var comment = await _context.Comments.FindAsync(id);
-            if (comment == null)
-            {
-                return NotFound();
-            }
-
-            if (comment.UserId != commentDto.UserId)
-            {
-                return Unauthorized("No tienes permiso de editar este comentario.");
-            }
-
-            comment.Text = commentDto.Text;
-            
-
-
-            if (id != comment.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(comment).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CommentExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            if (result) return Ok("Comentario modificado.");
+            return BadRequest("No se pudo editar el comentario.");
         }
 
         // POST: api/Comments
@@ -115,27 +69,10 @@ namespace DevNet_WebAPI.Controllers
         [Authorize]
         public async Task<ActionResult<Comment>> PostComment([FromBody] PostCommentDto commentDto)
         {
-            var userIdFromToken = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var result = await _commentService.PostCommentAsync(commentDto);
 
-            // Verificar que el UserId del token coincida con el UserId del postDto
-            if (userIdFromToken != commentDto.UserId.ToString())
-            {
-                return Unauthorized("El usuario que intenta dejar un nuevo comentario no coincide con el que ha iniciado sesion.");
-            }
-
-            Comment comment = new Comment
-            {
-                Id = Guid.NewGuid(),
-                PostId = commentDto.PostId,
-                UserId = commentDto.UserId,
-                Text = commentDto.Text,
-                CreatedAt = DateTime.Now
-            };
-
-            _context.Comments.Add(comment);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetComment", new { id = comment.Id }, comment);
+            if (result) return Ok("Comentario publicado.");
+            return BadRequest("No se pudo publicar el comentario.");
         }
 
         // DELETE: api/Comments/5
@@ -143,40 +80,15 @@ namespace DevNet_WebAPI.Controllers
         [Authorize]
         public async Task<IActionResult> DeleteComment(Guid id, [FromBody] DeleteCommentDto deleteDto)
         {
-            if (id != deleteDto.Id)
-            {
-                return BadRequest();
-            }
-            
-            var userIdFromToken = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var result = await _commentService.DeleteCommentAsync(id, deleteDto);
 
-            // Verificar que el UserId del token coincida con el UserId del postDto
-            if (userIdFromToken != deleteDto.UserId.ToString())
-            {
-                return Unauthorized("El usuario que intenta eliminar el comentario no coincide con el que ha iniciado sesion.");
-            }
-
-            var comment = await _context.Comments.FindAsync(id);
-            if (comment == null)
-            {
-                return NotFound();
-            }
-
-            if (comment.UserId != deleteDto.UserId)
-            {
-                return Unauthorized("No tienes permiso de borrar este comentario.");
-            }
-
-
-            _context.Comments.Remove(comment);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            if (result) return Ok("Comentario eliminado.");
+            return BadRequest("No se pudo eliminar el comentario.");
         }
 
         private bool CommentExists(Guid id)
         {
-            return _context.Comments.Any(e => e.Id == id);
+            return _commentService.CommentExist(id);
         }
     }
 }

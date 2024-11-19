@@ -10,6 +10,8 @@ using DevNet_DataAccessLayer.Models;
 using DevNet_WebAPI.Infrastructure.DTO;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using DevNet_BusinessLayer.Services;
+using DevNet_BusinessLayer.DTOs;
 
 namespace DevNet_WebAPI.Controllers
 {
@@ -18,18 +20,23 @@ namespace DevNet_WebAPI.Controllers
     public class PostsController : ControllerBase
     {
         private readonly DevnetDBContext _context;
+        private readonly PostService _postService;
 
-        public PostsController(DevnetDBContext context)
+        public PostsController(DevnetDBContext context,PostService postService)
         {
             _context = context;
+            _postService = postService;
         }
 
-        // GET: api/Posts
-        [HttpGet]
+        // GET: api/Posts/5
+        [HttpGet("user/{id}")]
         [Authorize]
-        public async Task<ActionResult<IEnumerable<Post>>> GetPosts()
+        public async Task<ActionResult<Post>> GetUserPosts(Guid userId)
         {
-            return await _context.Posts.ToListAsync();
+            var result = await _postService.GetUserPostsAsync(userId);
+
+            if (result != null) return Ok(result);
+            return BadRequest("No se han podido obtener las publicaciones de este usuario.");
         }
 
         // GET: api/Posts/5
@@ -37,14 +44,7 @@ namespace DevNet_WebAPI.Controllers
         [Authorize]
         public async Task<ActionResult<Post>> GetPost(Guid id)
         {
-            var post = await _context.Posts.FindAsync(id);
-
-            if (post == null)
-            {
-                return NotFound();
-            }
-
-            return post;
+            return await _postService.GetPostAsync(id);
         }
 
         // PUT: api/Posts/5
@@ -53,60 +53,10 @@ namespace DevNet_WebAPI.Controllers
         [Authorize]
         public async Task<IActionResult> EditPost(Guid id, [FromBody] EditPostDto postDto)
         {
-            if (id != postDto.Id)
-            {
-                return BadRequest();
-            }
+            var result = await _postService.EditPostAsync(id, postDto);
 
-            // Obtener el UserId del token JWT
-            var userIdFromToken = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            // Verificar que el UserId del token coincida con el UserId del postDto
-            if (userIdFromToken != postDto.UserId.ToString())
-            {
-                return Unauthorized("El usuario que intenta editar post no coincide con el que ha iniciado sesion.");
-            }
-
-            var post = await _context.Posts.FindAsync(id);
-            if (post == null)
-            {
-                return NotFound();
-            }
-
-            if (post.UserId != postDto.UserId)
-            {
-                return Unauthorized("No tienes permiso de editar este post.");
-            }
-
-            post.Text = postDto.Text;
-            post.MediaUrl = postDto.MediaUrl;
-            post.UpdatedAt = DateTime.Now;
-
-
-            if (id != post.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(post).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PostExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            if (result) return Ok("Publicación editada con éxito.");
+            return BadRequest("No se ha podido editar la publicación.");
         }
 
         // POST: api/Posts
@@ -115,31 +65,10 @@ namespace DevNet_WebAPI.Controllers
         [Authorize]
         public async Task<ActionResult<Post>> NewPost([FromBody] NewPostDto postDto)
         {
-            // Obtener el UserId del token JWT
-            var userIdFromToken = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var result = await _postService.NewPostAsync(postDto);
 
-            // Verificar que el UserId del token coincida con el UserId del postDto
-            if (userIdFromToken != postDto.UserId.ToString())
-            {
-                return Unauthorized("El usuario que intenta crear el nuevo post no coincide con el que ha iniciado sesion.");
-            }
-
-            Post post = new Post
-            {
-                Id = Guid.NewGuid(),
-                UserId = postDto.UserId,
-                Text = postDto.Text,
-                MediaUrl = postDto.MediaUrl,
-                CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now,
-                LikeCount = 0,
-                CommentCount = 0
-            };
-            
-            _context.Posts.Add(post);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetPost", new { id = post.Id }, post);
+            if (result) return Ok("Publicación creada con éxito.");
+            return BadRequest("No se ha podido crear la publicación.");
         }
 
         // DELETE: api/Posts/5
@@ -147,35 +76,10 @@ namespace DevNet_WebAPI.Controllers
         [Authorize]
         public async Task<IActionResult> DeletePost(Guid id, [FromBody] DeletePostDto deleteDto)
         {
-            if (id != deleteDto.PostId)
-            {
-                return BadRequest();
-            }
+            var result = await _postService.DeletePostAsync(id,deleteDto);
 
-            // Obtener el UserId del token JWT
-            var userIdFromToken = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            // Verificar que el UserId del token coincida con el UserId del postDto
-            if (userIdFromToken != deleteDto.UserId.ToString())
-            {
-                return Unauthorized("El usuario que intenta eliminar el post no es el propietario del mismo.");
-            }
-
-            var post = await _context.Posts.FindAsync(id);
-            if (post == null)
-            {
-                return NotFound();
-            }
-
-            if (post.UserId != deleteDto.UserId)
-            {
-                return Unauthorized("No tienes permiso de borrar este post.");
-            }
-
-            _context.Posts.Remove(post);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            if (result) return Ok("Publicación eliminada con éxito.");
+            return BadRequest("No se ha podido eliminar la publicación.");
         }
 
         private bool PostExists(Guid id)

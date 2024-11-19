@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.4" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
       <PrivateAssets>all</PrivateAssets>
@@ -25,6 +26,12 @@
   <ItemGroup>
     <ProjectReference Include="..\DevNet-BusinessLayer\DevNet-BusinessLayer.csproj" />
     <ProjectReference Include="..\DevNet-DataAccessLayer\DevNet-DataAccessLayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Infrastructure\DTO\" />
+    <Folder Include="Infrastructure\Interfaces\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>
