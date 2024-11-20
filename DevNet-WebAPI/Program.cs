@@ -3,6 +3,7 @@ using DevNet_BusinessLayer.Services;
 using DevNet_DataAccessLayer.Data;
 using DevNet_DataAccessLayer.Interfaces;
 using DevNet_DataAccessLayer.Repositories;
+using DevNet_WebAPI.Hubs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -13,6 +14,9 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+//Add services Hubs
+builder.Services.AddSignalR();
 
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IUserAccountService, UserAccountService>();
@@ -125,5 +129,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<MessageHub>("/MessageHub");
 
 app.Run();
