@@ -90,8 +90,10 @@ namespace DevNet_WebAPI.Controllers
         [Authorize]
         public async Task<IActionResult> UpdateRole(Guid id, [FromBody] Guid newRoleId)
         {
-            var user = await _userAccountService.UpdateRoleAsync(id, newRoleId);
-            return user == null ? NotFound() : NoContent();
+            var result = await _userAccountService.UpdateRoleAsync(id, newRoleId);
+
+            if (result) return Ok("Rol cambiado exitosamente.");
+            return BadRequest("No se ha podido cambiar el rol de este usuario.");
         }
     }
 }

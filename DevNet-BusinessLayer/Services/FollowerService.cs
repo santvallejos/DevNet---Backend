@@ -3,6 +3,7 @@ using DevNet_BusinessLayer.Interfaces;
 using DevNet_DataAccessLayer.Data;
 using DevNet_DataAccessLayer.Interfaces;
 using DevNet_DataAccessLayer.Models;
+using DevNet_DataAccessLayer.Repositories;
 using DevNet_WebAPI.Infrastructure.DTO;
 using System;
 using System.Collections.Generic;
@@ -44,6 +45,7 @@ namespace DevNet_BusinessLayer.Services
 
             var result = await _followerRepository.AddAsync(follower);
 
+            if (result) await _followerRepository.SaveChangesAsync();
             return result;
         }
 
@@ -58,6 +60,8 @@ namespace DevNet_BusinessLayer.Services
             }
 
             var result = await _followerRepository.DeleteAsync(follow);
+
+            if (result) await _followerRepository.SaveChangesAsync();
             return result;
         }
 

@@ -3,6 +3,7 @@ using DevNet_BusinessLayer.Interfaces;
 using DevNet_DataAccessLayer.Data;
 using DevNet_DataAccessLayer.Interfaces;
 using DevNet_DataAccessLayer.Models;
+using DevNet_DataAccessLayer.Repositories;
 using DevNet_WebAPI.Infrastructure.DTO;
 using System;
 using System.Collections.Generic;
@@ -48,6 +49,8 @@ namespace DevNet_BusinessLayer.Services
             };
 
             var result = await _postRepository.AddAsync(newPost);
+
+            if (result) await _postRepository.SaveChangesAsync();
             return result;
         }
 
@@ -60,6 +63,8 @@ namespace DevNet_BusinessLayer.Services
             if (post.UserId != postDto.UserId) return false;
 
             var result = await _postRepository.DeleteAsync(post);
+
+            if (result) await _postRepository.SaveChangesAsync();
             return result;
         }
 
@@ -76,6 +81,8 @@ namespace DevNet_BusinessLayer.Services
             post.UpdatedAt = DateTime.UtcNow;
 
             var result = await _postRepository.UpdateAsync(post);
+
+            if (result) await _postRepository.SaveChangesAsync();
             return result;
         }
     }

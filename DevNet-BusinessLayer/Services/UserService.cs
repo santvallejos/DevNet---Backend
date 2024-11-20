@@ -3,6 +3,7 @@ using DevNet_BusinessLayer.Interfaces;
 using DevNet_DataAccessLayer.Data;
 using DevNet_DataAccessLayer.Interfaces;
 using DevNet_DataAccessLayer.Models;
+using DevNet_DataAccessLayer.Repositories;
 using DevNet_WebAPI.Infrastructure.DTO;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -86,12 +87,13 @@ namespace DevNet_BusinessLayer.Services
                 return false;
             }
 
-            _context.Entry(user).State = EntityState.Modified;
 
             try
             {
-                var state = await _userRepository.UpdateAsync(user);
-                return state;
+                var result = await _userRepository.UpdateAsync(user);
+
+                if (result) await _userRepository.SaveChangesAsync();
+                return result;
             }
             catch (DbUpdateConcurrencyException)
             {

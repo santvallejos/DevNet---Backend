@@ -46,7 +46,10 @@ namespace DevNet_BusinessLayer.Services
             
             comment.Text = commentDto.Text;
             
-            return await _commentRepository.UpdateAsync(comment);
+            var result = await _commentRepository.UpdateAsync(comment);
+
+            if (result) await _commentRepository.SaveChangesAsync();
+            return result;
         }
 
         public async Task<bool> PostCommentAsync(PostCommentDto commentDto)
@@ -60,7 +63,10 @@ namespace DevNet_BusinessLayer.Services
                 UserId = commentDto.UserId
             };
 
-            return await _commentRepository.AddAsync(comment);
+            var result =  await _commentRepository.AddAsync(comment);
+
+            if (result) await _commentRepository.SaveChangesAsync();
+            return result;
         }
 
         public async Task<bool> DeleteCommentAsync(Guid id, DeleteCommentDto commentDto)
@@ -71,6 +77,8 @@ namespace DevNet_BusinessLayer.Services
             if (commentDto.UserId != comment.UserId) return false;
 
             var result = await _commentRepository.DeleteAsync(comment);
+            
+            if (result) await _commentRepository.SaveChangesAsync();
             return result;
         }
     }

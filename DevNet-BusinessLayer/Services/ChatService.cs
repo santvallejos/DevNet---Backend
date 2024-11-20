@@ -66,13 +66,20 @@ namespace DevNet_BusinessLayer.Services
                 Text = chatDto.Text
             };
 
-            return await _chatRepository.AddAsync(newChat);
+            var result = await _chatRepository.AddAsync(newChat);
+            
+            if (result)await _chatRepository.SaveChangesAsync();
+            return result;
         }
 
         public async Task<bool> DeleteChat(Guid id, DeleteChatDto deleteDto)
         {
             var chatToDelete = await _chatRepository.GetByIdAsync(id);
-            return await _chatRepository.DeleteAsync(chatToDelete);
+
+            var result = await _chatRepository.DeleteAsync(chatToDelete);
+
+            if (result) await _chatRepository.SaveChangesAsync();
+            return result;
         }
 
         public async Task<bool> CheckChatAsSeen(Guid id)
@@ -81,7 +88,10 @@ namespace DevNet_BusinessLayer.Services
 
             chat.IsRead = true;
 
-            return await _chatRepository.UpdateAsync(chat);
+            var result = await _chatRepository.UpdateAsync(chat);
+
+            if (result) await _chatRepository.SaveChangesAsync();
+            return result;
         }
     }
 }

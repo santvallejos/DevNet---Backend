@@ -14,9 +14,9 @@ public class AuthController : ControllerBase
 {
     private readonly IJwtService _jwtService;
     private readonly DevnetDBContext _context;
-    private readonly IUserAccountService _userAccountService;
+    private readonly UserAccountService _userAccountService;
 
-    public AuthController(IJwtService jwtService, DevnetDBContext context, IUserAccountService userAccountService)
+    public AuthController(IJwtService jwtService, DevnetDBContext context, UserAccountService userAccountService)
     {
         _jwtService = jwtService;
         _context = context;
@@ -26,35 +26,15 @@ public class AuthController : ControllerBase
     [HttpPost("login")]
     public IActionResult Login([FromBody] LoginDto loginDto)
     {
-        // Buscar al usuario en la base de datos
-        var user = _context.Users
-            .FirstOrDefault(u => u.Username == loginDto.Username);
-
-        if (user == null)
+        try
         {
-            return Unauthorized("Credenciales inválidas.");
+            string token = _userAccountService.LoginUser(loginDto);
+            return Ok(token);
         }
-
-        // Verificar la contraseña
-        var passwordHasher = new PasswordHasher<User>();
-        if (passwordHasher.VerifyHashedPassword(user, user.Password, loginDto.Password) != PasswordVerificationResult.Success)
+        catch (Exception)
         {
-            return Unauthorized("Credenciales inválidas.");
+            return BadRequest("Credenciales Incorrectas.");
         }
-
-        // Obtener el nombre del rol usando RoleId del usuario
-        var role = _context.Roles
-            .FirstOrDefault(r => r.Id == user.RoleId);
-
-        if (role == null)
-        {
-            return Unauthorized("El rol del usuario no existe.");
-        }
-
-        // Generar el token para el usuario autenticado
-        var token = _jwtService.GenerateToken(user.Username, role.Name);  // Usamos el nombre del rol
-
-        return Ok(new { Token = token });
     }
 
     [HttpPost("register")]
