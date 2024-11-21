@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using NuGet.Protocol.Core.Types;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -47,15 +46,15 @@ builder.Services.AddScoped<ChatRepository>();
 builder.Services.AddScoped<CommentRepository>();
 builder.Services.AddScoped<FollowerRepository>();
 builder.Services.AddScoped<PostRepository>();
-//Añadir Entity Framework Core al proyecto y configurar opciones de DbContext
+//Aï¿½adir Entity Framework Core al proyecto y configurar opciones de DbContext
 builder.Services.AddDbContext<DevnetDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-
-var jwtKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY");
+                                                                        //DeclaraciÃ³n de un valor por defecto si el valor es NULL (ERROR: Possible null reference argument for parameter 's' in 'System.Text.Encoding.GetBytes',) 
+var jwtKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY") ?? "default-secret-key";
 var jwtKeyBytes = Encoding.UTF8.GetBytes(jwtKey);
 
-// Configuración de JWT
+// Configuraciï¿½n de JWT
 
 builder.Services.AddAuthentication(options =>
 {
@@ -64,7 +63,8 @@ builder.Services.AddAuthentication(options =>
 })
 .AddJwtBearer(options =>
 {
-    var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+    //Variable que no se utiliza
+    //var jwtSettings = builder.Configuration.GetSection("JwtSettings");
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = false,
