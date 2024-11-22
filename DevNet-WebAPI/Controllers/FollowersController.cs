@@ -9,6 +9,9 @@ using DevNet_DataAccessLayer.Data;
 using DevNet_DataAccessLayer.Models;
 using DevNet_WebAPI.Infrastructure.DTO;
 using Microsoft.AspNetCore.Authorization;
+using DevNet_DataAccessLayer.Interfaces;
+using DevNet_BusinessLayer.Services;
+using DevNet_BusinessLayer.DTOs;
 
 namespace DevNet_WebAPI.Controllers
 {
@@ -17,69 +20,53 @@ namespace DevNet_WebAPI.Controllers
     public class FollowersController : ControllerBase
     {
         private readonly DevnetDBContext _context;
+        private readonly FollowerService _followerService;
 
-        public FollowersController(DevnetDBContext context)
+        public FollowersController(DevnetDBContext context, FollowerService followerService)
         {
             _context = context;
+            _followerService = followerService;
+
         }
 
-        // GET: api/Followers
-        [HttpGet]
+        // GET: api/Followers/follows/5
+        [HttpGet("follows/{id}")]
         [Authorize]
-        public async Task<ActionResult<IEnumerable<Follower>>> GetFollowers()
+        public async Task<ActionResult<Follower>> GetFollows(Guid id)
         {
-            return await _context.Followers.ToListAsync();
+            var result = await _followerService.GetUserFollowsAsync(id);
+            if (result != null) return Ok(result);
+            return BadRequest();
         }
 
-        // GET: api/Followers/5
-        [HttpGet("{id}")]
+        // GET: api/Followers/followers/5
+        [HttpGet("followers/{id}")]
         [Authorize]
-        public async Task<ActionResult<Follower>> GetFollower(Guid id)
+        public async Task<ActionResult<Follower>> GetFollowers(Guid id)
         {
-            var follower = await _context.Followers.FindAsync(id);
-
-            if (follower == null)
-            {
-                return NotFound();
-            }
-
-            return follower;
+            var result = await _followerService.GetUserFollowersAsync(id);
+            if (result != null) return Ok(result);
+            return BadRequest();
         }
-
         
         // POST: api/Followers
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         [Authorize]
         public async Task<ActionResult<Follower>> AddFollower([FromBody] AddFollowerDto followerDto)
         {
-            Follower follower = new Follower
-            {
-                FollowedAt = DateTime.Now,
-                FollowedId = followerDto.FollowedId,
-                FollowerId = followerDto.FollowerId
-            };
-            _context.Followers.Add(follower);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetFollower", new { id = follower.FollowerId }, follower);
+            var result = await _followerService.AddFollowAsync(followerDto);
+            if (result) return Ok("Se ha seguido al usuario con exito.");
+            return BadRequest("No se ha podido seguir al usuario.");
         }
 
-        // DELETE: api/Followers/5
-        [HttpDelete("{id}")]
+        // DELETE: api/unfollow
+        [HttpDelete("unfollow")]
         [Authorize]
-        public async Task<IActionResult> DeleteFollower(Guid id)
+        public async Task<IActionResult> Unfollow(UnfollowDto unfollowDto)
         {
-            var follower = await _context.Followers.FindAsync(id);
-            if (follower == null)
-            {
-                return NotFound();
-            }
-
-            _context.Followers.Remove(follower);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            var result = await _followerService.UnfollowAsync(unfollowDto);
+            if (result) return Ok("Se ha dejado de seguir al usuario con exito.");
+            return BadRequest("No se ha podido dejar de seguir al usuario.");
         }
 
         private bool FollowerExists(Guid id)

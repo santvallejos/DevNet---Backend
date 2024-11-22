@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using DevNet_DataAccessLayer.Data;
 using DevNet_DataAccessLayer.Models;
 using DevNet_WebAPI.Infrastructure.DTO;
-using DevNet_WebAPI.Services;
 using Microsoft.AspNetCore.Authorization;
+using DevNet_BusinessLayer.Services;
 
 namespace DevNet_WebAPI.Controllers
 {
@@ -19,11 +19,13 @@ namespace DevNet_WebAPI.Controllers
     {
         private readonly DevnetDBContext _context;
         private readonly UserAccountService _userAccountService;
+        private readonly UserService _userService;
 
-        public UsersController(DevnetDBContext context,UserAccountService userAccount)
+        public UsersController(DevnetDBContext context,UserAccountService userAccount, UserService userService)
         {
             _context = context;
             _userAccountService = userAccount;
+            _userService = userService;
         }
 
         // GET: api/Users
@@ -31,22 +33,9 @@ namespace DevNet_WebAPI.Controllers
         [Authorize]
         public async Task<ActionResult<IEnumerable<GetUserDto>>> GetUsers()
         {
-            var users = await _context.Users.ToListAsync();
-
-            // Convertir cada usuario a UserReadDto
-            var userDtos = users.Select(user => new GetUserDto
-            {
-                Id = user.Id,
-                RoleId = user.RoleId,
-                Name = user.Name,
-                LastName = user.LastName,
-                Username = user.Username,
-                Email = user.Email,
-                ProfileImageUrl = user.ProfileImageUrl,
-                CreatedAt = user.CreatedAt
-            }).ToList();
-
-            return userDtos;
+            var result = await _userService.GetUsersAsync();
+            if (result != null) return Ok(result);
+            return BadRequest();
         }
 
         // GET: api/Users/5
@@ -54,26 +43,7 @@ namespace DevNet_WebAPI.Controllers
         [Authorize]
         public async Task<ActionResult<GetUserDto>> GetUser(Guid id)
         {
-            var user = await _context.Users.FindAsync(id);
-
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            GetUserDto userDto = new GetUserDto
-            {
-                Id = user.Id,
-                RoleId = user.RoleId,
-                Name = user.Name,
-                LastName = user.LastName,
-                Username = user.Username,
-                Email = user.Email,
-                ProfileImageUrl = user.ProfileImageUrl,
-                CreatedAt = user.CreatedAt
-            };
-
-            return userDto;
+            return await _userService.GetUserAsync(id);
         }
 
         // PUT: api/Users/5
@@ -82,82 +52,9 @@ namespace DevNet_WebAPI.Controllers
         [Authorize]
         public async Task<IActionResult> EditUser(Guid id, [FromBody] EditUserDto userDto)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            user.Name = userDto.Name;
-            user.LastName = userDto.LastName;
-            user.ProfileImageUrl = userDto.ProfileImageUrl;
-
-            if (id != user.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(user).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Users
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        [Authorize]
-        public async Task<ActionResult<User>> CreateUser([FromBody] CreateUserDto userDto)
-        {
-            User user = new User
-            {
-                Id = Guid.NewGuid(),
-                RoleId = userDto.RoleId,
-                Name = userDto.Name,
-                LastName = userDto.LastName,
-                Username = userDto.Username,
-                Email = userDto.Email,
-                Password = userDto.Password,
-                ProfileImageUrl = userDto.ProfileImageUrl,
-                CreatedAt = DateTime.Now
-            };
-
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
-        }
-
-        // DELETE: api/Users/5
-        [HttpDelete("{id}")]
-        [Authorize]
-        public async Task<IActionResult> DeleteUser(Guid id)
-        {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            var state = await _userService.EditUserAsync(id, userDto);
+            if (state) return Ok();
+            return BadRequest();
         }
 
         private bool UserExists(Guid id)
@@ -193,8 +90,10 @@ namespace DevNet_WebAPI.Controllers
         [Authorize]
         public async Task<IActionResult> UpdateRole(Guid id, [FromBody] Guid newRoleId)
         {
-            var user = await _userAccountService.UpdateRoleAsync(id, newRoleId);
-            return user == null ? NotFound() : NoContent();
+            var result = await _userAccountService.UpdateRoleAsync(id, newRoleId);
+
+            if (result) return Ok("Rol cambiado exitosamente.");
+            return BadRequest("No se ha podido cambiar el rol de este usuario.");
         }
     }
 }

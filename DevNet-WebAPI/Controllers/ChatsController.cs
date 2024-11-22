@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DevNet_DataAccessLayer.Data;
 using DevNet_DataAccessLayer.Models;
-using DevNet_WebAPI.Infrastructure.DTO;
+using DevNet_BusinessLayer.DTOs;
+using DevNet_BusinessLayer.Interfaces;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using DevNet_BusinessLayer.Services;
 
 namespace DevNet_WebAPI.Controllers
 {
@@ -18,10 +21,12 @@ namespace DevNet_WebAPI.Controllers
     public class ChatsController : ControllerBase
     {
         private readonly DevnetDBContext _context;
+        private readonly ChatService _chatService;
 
-        public ChatsController(DevnetDBContext context)
+        public ChatsController(DevnetDBContext context,ChatService chatService)
         {
             _context = context;
+            _chatService = chatService;
         }
 
         // GET: api/Chats
@@ -29,97 +34,40 @@ namespace DevNet_WebAPI.Controllers
         [Authorize]
         public async Task<ActionResult<IEnumerable<Chat>>> GetChats()
         {
-            return await _context.Chats.ToListAsync();
+            var chats = await _chatService.GetChatsAsync();
+            return Ok(chats);
         }
 
         // GET: api/Chats/5
         [HttpGet("{id}")]
         [Authorize]
-        public async Task<ActionResult<Chat>> GetChat(Guid id)
+        public async Task<ActionResult<Chat>> GetChat(Guid id, [FromBody] GetChatDto chatDto)
         {
-            var chat = await _context.Chats.FindAsync(id);
-
-            if (chat == null)
-            {
-                return NotFound();
-            }
-
-            return chat;
+            var chat = await _chatService.GetChatAsync(id, chatDto);
+            return Ok(chat);
         }
 
-        // PUT: api/Chats/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        
-        /* Codigo comentado en caso de que se quiera que sea posible editar mensajes ya enviados
-         * 
-         * 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> EditChat(Guid id, Chat chat)
-        {
-            if (id != chat.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(chat).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ChatExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-        */
 
         // POST: api/Chats
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<Chat>> SendChat([FromBody] SendChatDto chatDto)
+        public async Task<ActionResult<IActionResult>> SendChat([FromBody] SendChatDto chatDto)
         {
-            Chat chat = new Chat
-            {
-                Id = Guid.NewGuid(),
-                IsRead = false,
-                ReceiverId = chatDto.ReceiverId,
-                SenderId = chatDto.SenderId,
-                SentAt = DateTime.Now,
-                Text = chatDto.Text
-            };
+            var state = await _chatService.SendChat(chatDto);
 
-            _context.Chats.Add(chat);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetChat", new { id = chat.Id }, chat);
+            if (state) return Ok(state);
+            return BadRequest(state);
         }
 
         // DELETE: api/Chats/5
         [HttpDelete("{id}")]
         [Authorize]
-        public async Task<IActionResult> DeleteChat(Guid id)
+        public async Task<IActionResult> DeleteChat(Guid id, [FromBody] DeleteChatDto chatDto)
         {
-            var chat = await _context.Chats.FindAsync(id);
-            if (chat == null)
-            {
-                return NotFound();
-            }
-
-            _context.Chats.Remove(chat);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            var state = await _chatService.DeleteChat(id, chatDto);
+            if (state) return Ok();
+            return BadRequest();
         }
 
         private bool ChatExists(Guid id)
@@ -129,41 +77,11 @@ namespace DevNet_WebAPI.Controllers
 
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<ActionResult> CheckAsSeenChat(Guid id)
+        public async Task<ActionResult> CheckChatAsSeen(Guid id)
         {
-            var chat = _context.Chats.Find(id);
-
-            if (chat == null)
-            {
-                return NotFound();
-            }
-
-            chat.IsRead = true;
-
-            if (id != chat.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(chat).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ChatExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            var state = await _chatService.CheckChatAsSeen(id);
+            if (state) return Ok();
+            return BadRequest();
         }
     }
 }
