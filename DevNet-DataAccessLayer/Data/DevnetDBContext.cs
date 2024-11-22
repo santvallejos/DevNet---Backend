@@ -38,10 +38,7 @@ namespace DevNet_DataAccessLayer.Data
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
         }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-            //optionsBuilder.UseSqlServer("Server=.;Database=ECommerceDb;Trusted_Connection=True;");
-        }
+        
+
     }
 }

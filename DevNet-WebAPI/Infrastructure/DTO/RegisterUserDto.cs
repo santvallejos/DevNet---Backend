@@ -34,7 +34,7 @@ namespace DevNet_WebAPI.Infrastructure.DTO
         public string? ProfileImageUrl { get; set; }
 
         // ID del rol asignado al usuario (obligatorio)
-        [Required]
-        public Guid RoleId { get; set; }
+        //[Required]
+        //public Guid RoleId { get; set; }
     }
 }
