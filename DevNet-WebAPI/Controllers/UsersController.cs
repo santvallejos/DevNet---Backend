@@ -19,11 +19,13 @@ namespace DevNet_WebAPI.Controllers
     {
         private readonly DevnetDBContext _context;
         private readonly UserAccountService _userAccountService;
+        private readonly FileHandlingService _fileHandlingService;
 
-        public UsersController(DevnetDBContext context,UserAccountService userAccount)
+        public UsersController(DevnetDBContext context, UserAccountService userAccountService, FileHandlingService fileHandlingService)
         {
             _context = context;
-            _userAccountService = userAccount;
+            _userAccountService = userAccountService;
+            _fileHandlingService = fileHandlingService;
         }
 
         // GET: api/Users
@@ -33,7 +35,6 @@ namespace DevNet_WebAPI.Controllers
         {
             var users = await _context.Users.ToListAsync();
 
-            // Convertir cada usuario a UserReadDto
             var userDtos = users.Select(user => new GetUserDto
             {
                 Id = user.Id,
@@ -77,7 +78,6 @@ namespace DevNet_WebAPI.Controllers
         }
 
         // PUT: api/Users/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         [Authorize]
         public async Task<IActionResult> EditUser(Guid id, [FromBody] EditUserDto userDto)
@@ -88,59 +88,89 @@ namespace DevNet_WebAPI.Controllers
                 return NotFound();
             }
 
-            user.Name = userDto.Name;
-            user.LastName = userDto.LastName;
-            user.ProfileImageUrl = userDto.ProfileImageUrl;
-
-            if (id != user.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(user).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExists(id))
+                // Validar que la imagen en base64 no esté vacía antes de intentar procesarla
+                if (!string.IsNullOrEmpty(userDto.ProfileImageUrl))
                 {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                    // Si hay una nueva imagen, eliminar la anterior y guardar la nueva
+                    if (userDto.ProfileImageUrl != user.ProfileImageUrl)
+                    {
+                        // Eliminar imagen anterior si existe
+                        if (!string.IsNullOrEmpty(user.ProfileImageUrl))
+                        {
+                            _fileHandlingService.DeleteProfileImage(user.ProfileImageUrl);
+                        }
 
-            return NoContent();
+                        // Guardar nueva imagen
+                        user.ProfileImageUrl = await _fileHandlingService.SaveProfileImageAsync(userDto.ProfileImageUrl);
+                    }
+                }
+
+                user.Name = userDto.Name;
+                user.LastName = userDto.LastName;
+
+                _context.Entry(user).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al actualizar usuario: {ex.Message}");
+            }
         }
 
         // POST: api/Users
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         [Authorize]
         public async Task<ActionResult<User>> CreateUser([FromBody] CreateUserDto userDto)
         {
-            User user = new User
+            try
             {
-                Id = Guid.NewGuid(),
-                RoleId = userDto.RoleId,
-                Name = userDto.Name,
-                LastName = userDto.LastName,
-                Username = userDto.Username,
-                Email = userDto.Email,
-                Password = userDto.Password,
-                ProfileImageUrl = userDto.ProfileImageUrl,
-                CreatedAt = DateTime.Now
-            };
+                // Validar que los datos esenciales no estén vacíos
+                if (string.IsNullOrEmpty(userDto.Username) || string.IsNullOrEmpty(userDto.Email) || string.IsNullOrEmpty(userDto.Password))
+                {
+                    return BadRequest("Username, email, and password cannot be empty.");
+                }
 
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+                // Validación de la imagen en Base64 si existe
+                string imageUrl = null;
+                if (!string.IsNullOrEmpty(userDto.ProfileImageUrl))
+                {
+                    // Validar que la cadena Base64 sea correcta
+                    try
+                    {
+                        imageUrl = await _fileHandlingService.SaveProfileImageAsync(userDto.ProfileImageUrl);
+                    }
+                    catch (FormatException)
+                    {
+                        return BadRequest("Invalid Base64 image format.");
+                    }
+                }
 
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+                User user = new User
+                {
+                    Id = Guid.NewGuid(),
+                    RoleId = userDto.RoleId,
+                    Name = userDto.Name,
+                    LastName = userDto.LastName,
+                    Username = userDto.Username,
+                    Email = userDto.Email,
+                    Password = userDto.Password,
+                    ProfileImageUrl = imageUrl, // Usar la URL generada
+                    CreatedAt = DateTime.Now
+                };
+
+                _context.Users.Add(user);
+                await _context.SaveChangesAsync();
+
+                return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al crear usuario: {ex.Message}");
+            }
         }
 
         // DELETE: api/Users/5
@@ -154,10 +184,23 @@ namespace DevNet_WebAPI.Controllers
                 return NotFound();
             }
 
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
+            try
+            {
+                // Eliminar la imagen si existe
+                if (!string.IsNullOrEmpty(user.ProfileImageUrl))
+                {
+                    _fileHandlingService.DeleteProfileImage(user.ProfileImageUrl);
+                }
 
-            return NoContent();
+                _context.Users.Remove(user);
+                await _context.SaveChangesAsync();
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al eliminar usuario: {ex.Message}");
+            }
         }
 
         private bool UserExists(Guid id)
@@ -169,6 +212,11 @@ namespace DevNet_WebAPI.Controllers
         [Authorize]
         public async Task<IActionResult> UpdateUsername(Guid id, [FromBody] string newUsername)
         {
+            if (string.IsNullOrEmpty(newUsername))
+            {
+                return BadRequest("Username cannot be empty.");
+            }
+
             var user = await _userAccountService.UpdateUsernameAsync(id, newUsername);
             return user == null ? NotFound() : NoContent();
         }
@@ -177,6 +225,11 @@ namespace DevNet_WebAPI.Controllers
         [Authorize]
         public async Task<IActionResult> UpdateEmail(Guid id, [FromBody] string newEmail)
         {
+            if (string.IsNullOrEmpty(newEmail))
+            {
+                return BadRequest("Email cannot be empty.");
+            }
+
             var user = await _userAccountService.UpdateEmailAsync(id, newEmail);
             return user == null ? NotFound() : NoContent();
         }
@@ -185,6 +238,11 @@ namespace DevNet_WebAPI.Controllers
         [Authorize]
         public async Task<IActionResult> UpdatePassword(Guid id, [FromBody] string newPassword)
         {
+            if (string.IsNullOrEmpty(newPassword))
+            {
+                return BadRequest("Password cannot be empty.");
+            }
+
             var user = await _userAccountService.UpdatePasswordAsync(id, newPassword);
             return user == null ? NotFound() : NoContent();
         }

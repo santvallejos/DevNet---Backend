@@ -30,7 +30,7 @@ namespace DevNet_WebAPI.Infrastructure.DTO
         public string Password { get; set; }
 
         // URL opcional para la imagen de perfil
-        [Url(ErrorMessage = "La URL de la imagen de perfil no es válida.")]
+        //[Url(ErrorMessage = "La URL de la imagen de perfil no es válida.")]
         public string? ProfileImageUrl { get; set; }
 
         // ID del rol asignado al usuario (obligatorio)

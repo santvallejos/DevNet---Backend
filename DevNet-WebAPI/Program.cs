@@ -14,6 +14,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<JwtService>();
 builder.Services.AddScoped<UserAccountService>();
 
+
+builder.Services.AddScoped<FileHandlingService>(provider =>
+{
+    var uploadDirectory = builder.Configuration.GetValue<string>("FileSettings:UploadDirectory");
+    return new FileHandlingService(uploadDirectory);
+});
+
 builder.Services.AddDbContext<DevnetDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 

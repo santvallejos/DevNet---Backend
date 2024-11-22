@@ -67,7 +67,7 @@ public class AuthController : ControllerBase
                 Username = registerDto.Username,
                 Email = registerDto.Email,
                 Password = passwordHasher.HashPassword(null, registerDto.Password),
-                ProfileImageUrl = registerDto.ProfileImageUrl,
+                ProfileImageUrl = registerDto.ProfileImageUrl ?? null,
                 RoleId = userRole.Id,
                 CreatedAt = DateTime.UtcNow
             };
