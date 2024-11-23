@@ -16,12 +16,14 @@ namespace DevNet_BusinessLayer.Services
     public class PostService : IPostService
     {
         private readonly IPostRepository _postRepository;
+        private readonly FollowerService _followerService;
         private readonly DevnetDBContext _context;
 
-        public PostService(IPostRepository postRepository, DevnetDBContext context)
+        public PostService(IPostRepository postRepository, DevnetDBContext context, FollowerService followerService)
         {
             _postRepository = postRepository;
             _context = context;
+            _followerService = followerService;
         }
 
         public async Task<IEnumerable<Post>> GetUserPostsAsync(Guid userId)
@@ -84,6 +86,21 @@ namespace DevNet_BusinessLayer.Services
 
             if (result) await _postRepository.SaveChangesAsync();
             return result;
+        }
+
+        public async Task<IEnumerable<Post>> GetUserFeedAsync(Guid userId, int page, int pageSize)
+        {
+            var followedUserIds = (await _followerService.GetUserFollowsAsync(userId))
+                .Select(uf => uf.FollowedId)
+                .ToList();
+
+            var posts = await _postRepository.GetAllAsync();
+
+            return posts
+                .Where(p => followedUserIds.Contains(p.UserId))
+                .OrderByDescending(p => p.CreatedAt)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize);             
         }
     }
 }

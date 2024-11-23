@@ -39,6 +39,18 @@ namespace DevNet_WebAPI.Controllers
             return BadRequest("No se han podido obtener las publicaciones de este usuario.");
         }
 
+        //get: api/Posts/feed/{userid}
+        [HttpGet("feed/{userId}")]
+        [Authorize]
+        public async Task<ActionResult<IEnumerable<Post>>> GetUserFeed(Guid userId, int page = 1, int pageSize = 10)
+        {
+            var posts = await _postService.GetUserFeedAsync(userId, page, pageSize);
+
+            if (posts == null || !posts.Any()) return NoContent();
+
+            return Ok(posts);
+        }
+
         // GET: api/Posts/5
         [HttpGet("{id}")]
         [Authorize]
