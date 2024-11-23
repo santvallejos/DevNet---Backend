@@ -8,8 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using DevNet_DataAccessLayer.Data;
 using DevNet_DataAccessLayer.Models;
 using DevNet_WebAPI.Infrastructure.DTO;
-using DevNet_WebAPI.Services;
 using Microsoft.AspNetCore.Authorization;
+using DevNet_BusinessLayer.Services;
+using Microsoft.AspNet.Identity;
 
 namespace DevNet_WebAPI.Controllers
 {
@@ -20,12 +21,14 @@ namespace DevNet_WebAPI.Controllers
         private readonly DevnetDBContext _context;
         private readonly UserAccountService _userAccountService;
         private readonly FileHandlingService _fileHandlingService;
+        private readonly UserService _userService;
 
-        public UsersController(DevnetDBContext context, UserAccountService userAccountService, FileHandlingService fileHandlingService)
+        public UsersController(DevnetDBContext context, UserAccountService userAccountService, FileHandlingService fileHandlingService, UserService userService)
         {
             _context = context;
             _userAccountService = userAccountService;
             _fileHandlingService = fileHandlingService;
+            _userService = userService;
         }
 
         // GET: api/Users
@@ -33,21 +36,9 @@ namespace DevNet_WebAPI.Controllers
         [Authorize]
         public async Task<ActionResult<IEnumerable<GetUserDto>>> GetUsers()
         {
-            var users = await _context.Users.ToListAsync();
-
-            var userDtos = users.Select(user => new GetUserDto
-            {
-                Id = user.Id,
-                RoleId = user.RoleId,
-                Name = user.Name,
-                LastName = user.LastName,
-                Username = user.Username,
-                Email = user.Email,
-                ProfileImageUrl = user.ProfileImageUrl,
-                CreatedAt = user.CreatedAt
-            }).ToList();
-
-            return userDtos;
+            var result = await _userService.GetUsersAsync();
+            if (result != null) return Ok(result);
+            return BadRequest();
         }
 
         // GET: api/Users/5
@@ -55,26 +46,7 @@ namespace DevNet_WebAPI.Controllers
         [Authorize]
         public async Task<ActionResult<GetUserDto>> GetUser(Guid id)
         {
-            var user = await _context.Users.FindAsync(id);
-
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            GetUserDto userDto = new GetUserDto
-            {
-                Id = user.Id,
-                RoleId = user.RoleId,
-                Name = user.Name,
-                LastName = user.LastName,
-                Username = user.Username,
-                Email = user.Email,
-                ProfileImageUrl = user.ProfileImageUrl,
-                CreatedAt = user.CreatedAt
-            };
-
-            return userDto;
+            return await _userService.GetUserAsync(id);
         }
 
         // PUT: api/Users/5
@@ -82,43 +54,9 @@ namespace DevNet_WebAPI.Controllers
         [Authorize]
         public async Task<IActionResult> EditUser(Guid id, [FromBody] EditUserDto userDto)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            try
-            {
-                // Validar que la imagen en base64 no esté vacía antes de intentar procesarla
-                if (!string.IsNullOrEmpty(userDto.ProfileImageUrl))
-                {
-                    // Si hay una nueva imagen, eliminar la anterior y guardar la nueva
-                    if (userDto.ProfileImageUrl != user.ProfileImageUrl)
-                    {
-                        // Eliminar imagen anterior si existe
-                        if (!string.IsNullOrEmpty(user.ProfileImageUrl))
-                        {
-                            _fileHandlingService.DeleteProfileImage(user.ProfileImageUrl);
-                        }
-
-                        // Guardar nueva imagen
-                        user.ProfileImageUrl = await _fileHandlingService.SaveProfileImageAsync(userDto.ProfileImageUrl);
-                    }
-                }
-
-                user.Name = userDto.Name;
-                user.LastName = userDto.LastName;
-
-                _context.Entry(user).State = EntityState.Modified;
-                await _context.SaveChangesAsync();
-
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Error al actualizar usuario: {ex.Message}");
-            }
+            var state = await _userService.EditUserAsync(id, userDto);
+            if (state) return Ok();
+            return BadRequest();
         }
 
         // POST: api/Users
@@ -203,11 +141,6 @@ namespace DevNet_WebAPI.Controllers
             }
         }
 
-        private bool UserExists(Guid id)
-        {
-            return _context.Users.Any(e => e.Id == id);
-        }
-
         [HttpPut("{id}/username")]
         [Authorize]
         public async Task<IActionResult> UpdateUsername(Guid id, [FromBody] string newUsername)
@@ -251,8 +184,10 @@ namespace DevNet_WebAPI.Controllers
         [Authorize]
         public async Task<IActionResult> UpdateRole(Guid id, [FromBody] Guid newRoleId)
         {
-            var user = await _userAccountService.UpdateRoleAsync(id, newRoleId);
-            return user == null ? NotFound() : NoContent();
+            var result = await _userAccountService.UpdateRoleAsync(id, newRoleId);
+
+            if (result) return Ok("Rol cambiado exitosamente.");
+            return BadRequest("No se ha podido cambiar el rol de este usuario.");
         }
     }
 }

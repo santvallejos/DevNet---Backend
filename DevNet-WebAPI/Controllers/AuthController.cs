@@ -1,27 +1,35 @@
 ﻿using DevNet_DataAccessLayer.Data;
 using DevNet_DataAccessLayer.Models;
-using DevNet_WebAPI.Infrastructure.DTO;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using DevNet_BusinessLayer.Services;
+using DevNet_BusinessLayer.Interfaces;
+using DevNet_BusinessLayer.DTOs;
+using System.Linq;
+using DevNet_WebAPI.Infrastructure.DTO;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNet.Identity;
 
 [ApiController]
 [Route("api/[controller]")]
 [Produces("application/json")]
 public class AuthController : ControllerBase
 {
-    private readonly JwtService _jwtService;
+    private readonly IJwtService _jwtService;
     private readonly DevnetDBContext _context;
+    private readonly UserAccountService _userAccountService;
     private readonly ILogger<AuthController> _logger;
 
-    public AuthController(JwtService jwtService, DevnetDBContext context, ILogger<AuthController> logger)
+    public AuthController(IJwtService jwtService, DevnetDBContext context, UserAccountService userAccountService, ILogger<AuthController> logger)
     {
         _jwtService = jwtService;
         _context = context;
+        _userAccountService = userAccountService;
         _logger = logger;
     }
 
     [HttpPost("register")]
-    public IActionResult Register([FromBody] RegisterUserDto registerDto)
+    public async Task<IActionResult> Register([FromBody] RegisterUserDto registerDto)
     {
         try
         {
@@ -73,7 +81,7 @@ public class AuthController : ControllerBase
             };
 
             _context.Users.Add(newUser);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             // Generar token para el nuevo usuario
             var token = _jwtService.GenerateToken(newUser.Username, userRole.Name);

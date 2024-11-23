@@ -1,5 +1,10 @@
+using DevNet_BusinessLayer.Interfaces;
+using DevNet_BusinessLayer.Services;
 using DevNet_DataAccessLayer.Data;
-using DevNet_WebAPI.Services;
+using DevNet_DataAccessLayer.Interfaces;
+using DevNet_DataAccessLayer.Repositories;
+
+using DevNet_WebAPI.Hubs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -11,23 +16,40 @@ using System.Text.Json;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddScoped<JwtService>();
-builder.Services.AddScoped<UserAccountService>();
 
+builder.Services.AddSignalR(); // Este servicio no debe duplicarse.
 
+builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<IUserAccountService, UserAccountService>();
+builder.Services.AddScoped<IChatService, ChatService>();
+builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<IFollowerService, FollowerService>();
+builder.Services.AddScoped<IPostService, PostService>();
+builder.Services.AddScoped<IUserService, UserService>();
+
+// Repositorios
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IChatRepository, ChatRepository>();
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<IFollowerRepository, FollowerRepository>();
+builder.Services.AddScoped<IPostRepository, PostRepository>();
+
+// Servicios adicionales
 builder.Services.AddScoped<FileHandlingService>(provider =>
 {
     var uploadDirectory = builder.Configuration.GetValue<string>("FileSettings:UploadDirectory");
     return new FileHandlingService(uploadDirectory);
 });
 
+// DbContext
 builder.Services.AddDbContext<DevnetDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-var jwtKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY");
+// Configuración de JWT
+var jwtKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY") ?? "default-secret-key";
 var jwtKeyBytes = Encoding.UTF8.GetBytes(jwtKey);
 
-// Configuración de JWT
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -35,7 +57,6 @@ builder.Services.AddAuthentication(options =>
 })
 .AddJwtBearer(options =>
 {
-    var jwtSettings = builder.Configuration.GetSection("JwtSettings");
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = false,
@@ -107,6 +128,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors(x => x
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .SetIsOriginAllowed(origin => true) // Permitir todas las solicitudes de origen
+    .AllowCredentials());
+
 app.UseHttpsRedirection();
 
 app.UseCors("AllowLocalhost4200"); // Aplicar la política de CORS
@@ -114,5 +141,7 @@ app.UseCors("AllowLocalhost4200"); // Aplicar la política de CORS
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+
+app.MapHub<MessageHub>("/MessageHub");
 
 app.Run();

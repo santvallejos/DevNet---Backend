@@ -1,4 +1,4 @@
-﻿namespace DevNet_WebAPI.Controllers
+﻿namespace DevNet_BusinessLayer.DTOs
 {
     public class DeletePostDto
     {

@@ -1,4 +1,4 @@
-﻿namespace DevNet_WebAPI.Infrastructure.DTO
+﻿namespace DevNet_BusinessLayer.DTOs
 {
     public class GetChatDto
     {
