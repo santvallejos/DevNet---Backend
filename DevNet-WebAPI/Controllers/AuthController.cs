@@ -8,7 +8,7 @@ using DevNet_BusinessLayer.DTOs;
 using System.Linq;
 using DevNet_WebAPI.Infrastructure.DTO;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Identity;
 
 [ApiController]
 [Route("api/[controller]")]

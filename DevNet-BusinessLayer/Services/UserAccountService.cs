@@ -7,17 +7,18 @@ using DevNet_WebAPI.Infrastructure.DTO;
 using DevNet_BusinessLayer.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using DevNet_DataAccessLayer.Repositories;
 
 
 namespace DevNet_BusinessLayer.Services
 {
     public class UserAccountService : IUserAccountService
     {
-        private readonly IUserRepository _userRepository;
+        private readonly UserRepository _userRepository;
         private readonly DevnetDBContext _context;
         private readonly JwtService _jwtService;
 
-        public UserAccountService(DevnetDBContext context, IUserRepository userRepository, JwtService jwtService)
+        public UserAccountService(DevnetDBContext context, UserRepository userRepository, JwtService jwtService)
         {
             _context = context;
             _userRepository = userRepository;
@@ -63,7 +64,10 @@ namespace DevNet_BusinessLayer.Services
             User user = new User
             {
                 Id = Guid.NewGuid(),
-                RoleId = userDto.RoleId,
+
+                #warning Reemplazar el Id dentro del "Guid.Parse" con el roleId del rol "user" de la base de datos
+                RoleId = (Guid)(userDto.RoleId  != null ? userDto.RoleId : Guid.Parse("75946ec7-2cd0-41f6-9221-498c196a4299")),
+
                 Name = userDto.Name,
                 LastName = userDto.LastName,
                 Username = userDto.Username,
