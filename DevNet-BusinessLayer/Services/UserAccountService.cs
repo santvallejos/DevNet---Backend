@@ -64,10 +64,7 @@ namespace DevNet_BusinessLayer.Services
             User user = new User
             {
                 Id = Guid.NewGuid(),
-
-                #warning Reemplazar el Id dentro del "Guid.Parse" con el roleId del rol "user" de la base de datos
-                RoleId = (Guid)(userDto.RoleId  != null ? userDto.RoleId : Guid.Parse("75946ec7-2cd0-41f6-9221-498c196a4299")),
-
+                RoleId = Guid.Parse("75946ec7-2cd0-41f6-9221-498c196a4299"),
                 Name = userDto.Name,
                 LastName = userDto.LastName,
                 Username = userDto.Username,

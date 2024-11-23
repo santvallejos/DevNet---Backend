@@ -55,16 +55,35 @@ public class AuthController : ControllerBase
             }
 
             // Obtener el rol de usuario
-            var userRole = _context.Roles.FirstOrDefault(r => r.Name == "Usuario");
-            if (userRole == null)
+            var requestRole = _context.Roles.FirstOrDefault(r => r.Id == registerDto.RoleId);
+
+            if (registerDto.RoleId != null)
             {
-                return BadRequest(new
+                requestRole = _context.Roles.FirstOrDefault(r => r.Id == registerDto.RoleId);
+                if (requestRole == null)
                 {
-                    success = false,
-                    message = "Error en la configuración del sistema.",
-                    errors = new[] { new { description = "Default user role not found" } }
-                });
+                    return BadRequest(new
+                    {
+                        success = false,
+                        message = "Error en la configuración del sistema.",
+                        errors = new[] { new { description = "Default user role not found" } }
+                    });
+                }           
             }
+            else
+            {
+                requestRole = _context.Roles.First();
+                if (requestRole == null)
+                {
+                    return BadRequest(new
+                    {
+                        success = false,
+                        message = "Error en la configuración del sistema.",
+                        errors = new[] { new { description = "Aun no hay roles creados en la base de datos." } }
+                    });
+                }
+            }
+       
 
             // Crear usuario
             var passwordHasher = new PasswordHasher<User>();
@@ -76,7 +95,7 @@ public class AuthController : ControllerBase
                 Email = registerDto.Email,
                 Password = passwordHasher.HashPassword(null, registerDto.Password),
                 ProfileImageUrl = registerDto.ProfileImageUrl ?? null,
-                RoleId = userRole.Id,
+                RoleId = requestRole.Id,
                 CreatedAt = DateTime.UtcNow
             };
 
@@ -84,7 +103,7 @@ public class AuthController : ControllerBase
             await _context.SaveChangesAsync();
 
             // Generar token para el nuevo usuario
-            var token = _jwtService.GenerateToken(newUser.Username, userRole.Name);
+            var token = _jwtService.GenerateToken(newUser.Username, requestRole.Name);
 
             // Devolver respuesta exitosa
             return Ok(new
@@ -97,7 +116,7 @@ public class AuthController : ControllerBase
                     username = newUser.Username,
                     email = newUser.Email,
                     token = token,
-                    role = userRole.Name
+                    role = requestRole.Name
                 }
             });
         }
