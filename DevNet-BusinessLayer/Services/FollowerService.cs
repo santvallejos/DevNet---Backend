@@ -38,8 +38,8 @@ namespace DevNet_BusinessLayer.Services
         {
             Follower follower = new Follower
             {
-                FollowedId = followerDto.FollowerId,
-                FollowerId = followerDto.FollowedId,
+                FollowedId = followerDto.FollowedId,
+                FollowerId = followerDto.FollowerId,
                 FollowedAt = DateTime.Now
             };
 
