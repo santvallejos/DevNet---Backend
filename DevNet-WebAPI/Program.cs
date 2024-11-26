@@ -52,7 +52,8 @@ builder.Services.AddScoped<PostRepository>();
 // Servicios adicionales
 builder.Services.AddScoped<FileHandlingService>(provider =>
 {
-    var uploadDirectory = builder.Configuration.GetValue<string>("FileSettings:UploadDirectory");
+    var uploadDirectory = builder.Configuration.GetValue<string>("FileSettings:UploadDirectory")
+                          ?? "DefaultUploadDirectory"; // Valor por defecto
     return new FileHandlingService(uploadDirectory);
 });
 
