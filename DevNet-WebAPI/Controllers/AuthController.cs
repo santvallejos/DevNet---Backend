@@ -1,14 +1,14 @@
-﻿using DevNet_DataAccessLayer.Data;
+﻿using System.Linq;
+using DevNet_BusinessLayer.DTOs;
+using DevNet_BusinessLayer.Interfaces;
+using DevNet_BusinessLayer.Services;
+using DevNet_DataAccessLayer.Data;
 using DevNet_DataAccessLayer.Models;
+using DevNet_WebAPI.Infrastructure.DTO;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using DevNet_BusinessLayer.Services;
-using DevNet_BusinessLayer.Interfaces;
-using DevNet_BusinessLayer.DTOs;
-using System.Linq;
-using DevNet_WebAPI.Infrastructure.DTO;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Identity;
 
 [ApiController]
 [Route("api/[controller]")]

@@ -8,22 +8,22 @@ namespace DevNet_WebAPI.Hubs
         private static readonly Dictionary<string, string> ConnectedUsers = new();
 
         // Método para registrar la conexión de un usuario
-        public async Task RegisterConnection(string userId)
+        public async Task RegisterConnection(string userEmail)
         {
-            ConnectedUsers[userId] = Context.ConnectionId;
-            await Clients.Caller.SendAsync("ConnectionRegistered", $"User {userId} is connected.");
+            ConnectedUsers[userEmail] = Context.ConnectionId;
+            await Clients.Caller.SendAsync("ConnectionRegistered", $"User {userEmail} is connected.");
         }
         
         // Método para enviar un mensaje de un usuario a otro
-        public async Task SendMessage(string senderId, string receiverId, string message)
+        public async Task SendMessage(string senderEmail, string receiverEmail, string message)
         {
-            if (ConnectedUsers.TryGetValue(receiverId, out var receiverConnectionId))
+            if (ConnectedUsers.TryGetValue(receiverEmail, out var receiverConnectionId))
             {
-                await Clients.Client(receiverConnectionId).SendAsync("ReceiveMessage", senderId, message);
+                await Clients.Client(receiverConnectionId).SendAsync("ReceiveMessage", senderEmail, message);
             }
             else
             {
-                await Clients.Caller.SendAsync("UserOffline", $"User {receiverId} is offline.");
+                await Clients.Caller.SendAsync("UserOffline", $"User {receiverEmail} is offline.");
             }
         }
     }

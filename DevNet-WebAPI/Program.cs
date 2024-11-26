@@ -1,18 +1,17 @@
+using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using DevNet_BusinessLayer.Interfaces;
 using DevNet_BusinessLayer.Services;
 using DevNet_DataAccessLayer.Data;
 using DevNet_DataAccessLayer.Interfaces;
 using DevNet_DataAccessLayer.Repositories;
-
 using DevNet_WebAPI.Hubs;
+using DevNet_WebAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Text.Json;
-using DevNet_WebAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -61,7 +60,7 @@ builder.Services.AddScoped<FileHandlingService>(provider =>
 builder.Services.AddDbContext<DevnetDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Configuración de JWT
+// Configuraciï¿½n de JWT
 var jwtKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY") ?? "default-secret-key";
 var jwtKeyBytes = Encoding.UTF8.GetBytes(jwtKey);
 
@@ -84,12 +83,12 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 
-// Configuración de CORS
+// Configuraciï¿½n de CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowLocalhost4200", policy =>
     {
-        policy.WithOrigins("http://localhost:4200") // Ajusta el origen según tu frontend
+        policy.WithOrigins("http://localhost:4200") // Ajusta el origen segï¿½n tu frontend
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowAnyOrigin();
@@ -152,7 +151,7 @@ app.UseCors(x => x
 
 app.UseHttpsRedirection();
 
-app.UseCors("AllowLocalhost4200"); // Aplicar la política de CORS
+app.UseCors("AllowLocalhost4200"); // Aplicar la polï¿½tica de CORS
 
 app.UseAuthentication();
 app.UseAuthorization();
